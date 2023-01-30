@@ -14,6 +14,5 @@ public class ChatRoomController implements Initializable {
     }
 
     public void setChatRoomForm(Parent chatRoomForm) {
-        System.out.println("안녕하세요ㄴㄴㄴㄴㄴ");
     }
 }
