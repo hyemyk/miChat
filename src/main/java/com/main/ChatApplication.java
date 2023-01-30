@@ -1,6 +1,7 @@
 package com.main;
 
 import com.controller.LoginController;
+import com.service.Server;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ChatApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(ChatApplication.class.getResource("login.fxml"));
@@ -28,9 +30,13 @@ public class ChatApplication extends Application {
         stage.setTitle("로그인 화면");
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
+        Server server = new Server();
+        server.serverStart();
         launch();
+
     }
 }
