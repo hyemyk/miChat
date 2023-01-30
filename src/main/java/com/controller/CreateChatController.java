@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,6 +28,7 @@ public class CreateChatController implements Initializable {
         System.out.println(windowOpenManager);
         if (result) {
             windowOpenManager.chatRoomOpen();
+
         }else {
             CommonService.msg("다시 입력하여 주세요.");
         }
