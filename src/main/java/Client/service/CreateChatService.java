@@ -1,4 +1,4 @@
-package com.service;
+package Client.service;
 
 public class CreateChatService {
 

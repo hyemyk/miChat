@@ -1,8 +1,4 @@
-package com.service;
-
-import com.service.CommonService;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+package Client.service;
 
 //public enum LoginResult {
 //    SUCCESS(0), FAIL(1);
@@ -30,7 +26,7 @@ public class LoginService {
         if(userId.equals("admin")){
             return "y";
         }
-        (new CommonService()).msg("아이디와 비밀번호를 다시 확인 하세요.");
+        (new UICommonService()).msg("아이디와 비밀번호를 다시 확인 하세요.");
         return "n";
     }
 }

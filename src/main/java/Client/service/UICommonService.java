@@ -1,10 +1,10 @@
-package com.service;
+package Client.service;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-public class CommonService {
+public class UICommonService {
     
     // alert창 띄우기
     public static void msg(String content) {
@@ -15,7 +15,6 @@ public class CommonService {
     
     // 스테이지 닫기
     public static void windowClose(Parent form) {
-        Stage stage = (Stage)form.getScene().getWindow();
-        stage.close();
+        ((Stage)form.getScene().getWindow()).close();
     }
 }

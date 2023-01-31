@@ -1,9 +1,9 @@
-package com.main;
+package Client.main;
 
-import com.controller.ChatRoomController;
-import com.controller.CreateChatController;
-import com.controller.MainController;
-import com.service.CommonService;
+import Client.controller.ChatRoomController;
+import Client.controller.CreateChatController;
+import Client.controller.MainController;
+import Client.service.UICommonService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -45,7 +45,7 @@ public class WindowOpenManager {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            CommonService.msg("메인 화면에 문제가 발생했습니다. 관리자에게 문의하세요.");
+            UICommonService.msg("메인 화면에 문제가 발생했습니다. 관리자에게 문의하세요.");
             e.printStackTrace();
         }
     }
@@ -70,14 +70,14 @@ public class WindowOpenManager {
             this.setStage(stage);
 
 
-//            Stage createChatStage = new Stage();
+ //           Stage createChatStage = new Stage();
             createChatStage.setTitle("채팅방 만들기");
             Scene scene = new Scene(createChatForm);
             createChatStage.setScene(scene);
             createChatStage.show();
 
         } catch (IOException e) {
-            CommonService.msg("채팅방 만들기 화면에 문제가 발생했습니다. 관리자에게 문의하세요.");
+            UICommonService.msg("채팅방 만들기 화면에 문제가 발생했습니다. 관리자에게 문의하세요.");
             e.printStackTrace();
         }
     }
@@ -95,7 +95,7 @@ public class WindowOpenManager {
             createChatStage.setScene(scene);
             createChatStage.show();
         } catch (Exception e) {
-            CommonService.msg(" 관리자에게 문의하세요.");
+            UICommonService.msg(" 관리자에게 문의하세요.");
             e.printStackTrace();
         }
     }

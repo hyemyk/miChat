@@ -1,8 +1,8 @@
-package com.controller;
+package Client.controller;
 
-import com.main.WindowOpenManager;
-import com.service.CommonService;
-import com.service.CreateChatService;
+import Client.main.WindowOpenManager;
+import Client.service.UICommonService;
+import Client.service.CreateChatService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -30,12 +30,12 @@ public class CreateChatController implements Initializable {
             windowOpenManager.chatRoomOpen();
 
         }else {
-            CommonService.msg("다시 입력하여 주세요.");
+            UICommonService.msg("다시 입력하여 주세요.");
         }
     }
 
     public void cancel() {
-        CommonService.windowClose(createChatForm);
+        UICommonService.windowClose(createChatForm);
     }
 
     public void setCreateChatForm(Parent createChatForm) {

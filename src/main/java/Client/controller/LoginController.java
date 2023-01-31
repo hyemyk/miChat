@@ -1,7 +1,7 @@
-package com.controller;
+package Client.controller;
 
-import com.main.WindowOpenManager;
-import com.service.LoginService;
+import Client.main.WindowOpenManager;
+import Client.service.LoginService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;

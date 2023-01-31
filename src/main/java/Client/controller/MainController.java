@@ -1,6 +1,6 @@
-package com.controller;
+package Client.controller;
 
-import com.main.WindowOpenManager;
+import Client.main.WindowOpenManager;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 

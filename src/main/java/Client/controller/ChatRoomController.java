@@ -1,4 +1,4 @@
-package com.controller;
+package Client.controller;
 
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
