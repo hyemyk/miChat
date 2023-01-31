@@ -38,8 +38,8 @@ public class ChatRoomDTO {
     }
 
     public void enterUser(List users) {
-        for(UserDTO gameUser : users){
-            gameUser.enterRoom(this);
+        for(UserDTO user : users){
+            user.enterRoom(this);
         }
         userList.addAll(users);
     }
@@ -112,9 +112,9 @@ public class ChatRoomDTO {
         return null; // 찾는 유저가 없다면
     }
 
-    public GameUser getUser(GameUser gameUser) { // GameUser 객체로 get
+    public UserDTO getUser(UserDTO user) { // GameUser 객체로 get
 
-        int idx = userList.indexOf(gameUser);
+        int idx = userList.indexOf(user);
 
         // 유저가 존재한다면(gameUser의 equals로 비교)
         if(idx > 0){
@@ -134,7 +134,7 @@ public class ChatRoomDTO {
         return userList.size();
     }
 
-    public GameUser getOwner() { // 방장을 리턴
+    public UserDTO getOwner() { // 방장을 리턴
         return roomOwner;
     }
 
@@ -154,11 +154,11 @@ public class ChatRoomDTO {
         this.userList = userList;
     }
 
-    public GameUser getRoomOwner() {
+    public UserDTO getRoomOwner() {
         return roomOwner;
     }
 
-    public void setRoomOwner(GameUser roomOwner) {
+    public void setRoomOwner(UserDTO roomOwner) {
         this.roomOwner = roomOwner;
     }
 
@@ -167,9 +167,9 @@ public class ChatRoomDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GameRoom gameRoom = (GameRoom) o;
+        ChatRoomDTO chatRoom = (ChatRoomDTO) o;
 
-        return id == gameRoom.id;
+        return id == chatRoom.id;
     }
 
     @Override
