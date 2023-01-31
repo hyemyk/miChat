@@ -32,14 +32,10 @@ public class ChatApplication extends Application {
 
     }
 
-    public  void test(){
-        System.out.println("test");
-    }
-
     public static void main(String[] args) {
        // Server server = new Server();
        // server.serverStart(port);
-        launch();//test
+        launch();
        // server.serverStop();
     }
 
