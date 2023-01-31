@@ -53,7 +53,7 @@ public class ChatRoomDTO {
         userList.remove(user); // 해당 유저를 방에서 내보냄
 
         if (userList.size() < 1) { // 모든 인원이 다 방을 나갔다면
-            RoomManager.removeRoom(this); // 이 방을 제거한다.
+           // RoomManager.removeRoom(this); // 이 방을 제거한다.
             return;
         }
 
@@ -162,6 +162,7 @@ public class ChatRoomDTO {
         this.roomOwner = roomOwner;
     }
 
+/*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -175,5 +176,5 @@ public class ChatRoomDTO {
     @Override
     public int hashCode() {
         return id;
-    }
+    }*/
 }
