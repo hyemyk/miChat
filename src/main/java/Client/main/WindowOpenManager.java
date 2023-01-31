@@ -99,6 +99,4 @@ public class WindowOpenManager {
             e.printStackTrace();
         }
     }
-
-
 }
