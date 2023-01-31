@@ -1,6 +1,7 @@
-package Client.main;
+package com.main;
 
-import Client.controller.LoginController;
+import com.controller.LoginController;
+import com.service.Server;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,8 +11,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ChatApplication extends Application {
-
-
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,7 +26,7 @@ public class ChatApplication extends Application {
         loginCon.setWindowOpenManager(windowOpenManager);
 
         Scene scene = new Scene(loginForm);
-        System.out.println("첫 스테이지: " + stage);
+        System.out.println("첫 스테이지: "+ stage);
         stage.setTitle("로그인 화면");
         stage.setScene(scene);
         stage.show();
@@ -35,10 +34,9 @@ public class ChatApplication extends Application {
     }
 
     public static void main(String[] args) {
-       // Server server = new Server();
-       // server.serverStart(port);
+        Server server = new Server();
+        server.serverStart();
         launch();
-       // server.serverStop();
-    }
 
+    }
 }
