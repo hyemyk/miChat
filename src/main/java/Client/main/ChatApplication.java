@@ -1,7 +1,6 @@
-package com.main;
+package Client.main;
 
-import com.controller.LoginController;
-import com.service.Server;
+import Client.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,17 +25,22 @@ public class ChatApplication extends Application {
         loginCon.setWindowOpenManager(windowOpenManager);
 
         Scene scene = new Scene(loginForm);
-        System.out.println("첫 스테이지: "+ stage);
+        System.out.println("첫 스테이지: " + stage);
         stage.setTitle("로그인 화면");
         stage.setScene(scene);
         stage.show();
 
     }
 
-    public static void main(String[] args) {
-        Server server = new Server();
-        server.serverStart();
-        launch();
-
+    public  void test(){
+        System.out.println("test");
     }
+
+    public static void main(String[] args) {
+       // Server server = new Server();
+       // server.serverStart(port);
+        launch();//test
+       // server.serverStop();
+    }
+
 }
