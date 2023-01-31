@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class ChatApplication extends Application {
 
-
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(ChatApplication.class.getResource("login.fxml"));
@@ -34,10 +32,14 @@ public class ChatApplication extends Application {
 
     }
 
+    public  void test(){
+        System.out.println("test");
+    }
+
     public static void main(String[] args) {
        // Server server = new Server();
        // server.serverStart(port);
-        launch();
+        launch();//test
        // server.serverStop();
     }
 
