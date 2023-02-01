@@ -5,7 +5,8 @@ import Client.controller.ChatRoomController;
 import java.net.Socket;
 
 public class UserDTO {
-    private int id; 			// Unique ID
+
+   			// Unique ID
     private ChatRoomDTO room; 		// 유저가 속한 룸이다.
     private Socket sock; 		// 소켓 object
     private String nickName;	// 닉네임

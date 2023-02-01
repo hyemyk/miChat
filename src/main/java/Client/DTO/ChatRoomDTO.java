@@ -49,10 +49,10 @@ public class ChatRoomDTO {
             return;
         }
 
-        if (inviteeList.size() < 2) { // 방에 남은 인원이 1명 이하라면
+       /* if (inviteeList.size() < 2) { // 방에 남은 인원이 1명 이하라면
             this.roomOwner = inviteeList.get(0); // 리스트의 첫번째 유저가 방장이 된다.
             return;
-        }
+        }*/
     }
 
     /**
