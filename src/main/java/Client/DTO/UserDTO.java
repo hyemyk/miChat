@@ -1,80 +1,54 @@
 package Client.DTO;
 
-import Client.controller.ChatRoomController;
-
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDTO {
-    private int id; 			// Unique ID
-    private ChatRoomDTO room; 		// 유저가 속한 룸이다.
-    private Socket sock; 		// 소켓 object
-    private String nickName;	// 닉네임
-
+    private String id;	// 아이디
+    private ArrayList<ChatRoomDTO> roomList;  // 유저가 속한 룸 List
+    private Socket socket; // 소켓 object
 
     public UserDTO() { // 아무런 정보가 없는 깡통 유저를 만들 때
     }
 
-    /**
-     * 유저 생성
-     *nickName 닉네임
-     */
-    public UserDTO(String nickName) { // 닉네임 정보만 가지고 생성
-        this.nickName = nickName;
-    }
-
-
-    /**
-     * 방에 입장시킴
-     * room  입장할 방
-     */
-    public void enterRoom(ChatRoomDTO room) {
-        room.enterUser(this); // 룸에 입장시킨 후
-        this.room = room; // 유저가 속한 방을 룸으로 변경한다.(중요)
-    }
-
-    /**
-     * 방에서 퇴장
-     * room 퇴장할 방
-     */
-    public void exitRoom(ChatRoomDTO room){
-        this.room = null;
-        // 퇴장처리(화면에 메세지를 준다는 등)
-        // ...
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public UserDTO(String id) { // 아이디 정보만 가지고 생성
         this.id = id;
     }
 
-    public ChatRoomDTO getRoom() {
-        return room;
+//    /**
+//     * 방에 입장시킴
+//     * room  입장할 방
+//     */
+//    public void enterRoom(ChatRoomDTO room) {
+//        room.enterUser(this); // 룸에 입장시킨 후
+//        this.room = room; // 유저가 속한 방을 룸으로 변경한다.(중요)
+//    }
+
+
+    public String getId() {
+        return id;
     }
 
-    public void setRoom(ChatRoomDTO room) {
-        this.room = room;
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+
+    public ArrayList<ChatRoomDTO> getRoomList() {
+        return roomList;
     }
 
-    public Socket getSock() {
-        return sock;
+    public void setRoomList(ArrayList<ChatRoomDTO> roomList) {
+        this.roomList = roomList;
     }
 
-    public void setSock(Socket sock) {
-        this.sock = sock;
+    public Socket getSocket() {
+        return socket;
     }
 
-    public String getNickName() {
-        return nickName;
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
 
 
     /*

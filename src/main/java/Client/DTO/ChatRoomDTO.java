@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatRoomDTO {
-    private List<UserDTO> inviteeList;
+    private List<UserDTO> inviteeList; // 방 참가자 리스트
     private String roomName; // 방 이름
 
 
@@ -21,50 +21,22 @@ public class ChatRoomDTO {
             user.enterRoom(this);
         }
 
-        //this.roomOwner = inviteeList.get(0); // 첫번째 유저를 방장으로 설정
     }
 
-    public void enterUser(UserDTO user) {
-        user.enterRoom(this);
-        inviteeList.add(user);
-    }
+//    public void enterUser(UserDTO user) {
+//        user.enterRoom(this);
+//        inviteeList.add(user);
+//    }
+//
+//    public void enterUser(List<UserDTO> users) { /**/
+//        for(UserDTO user : users){
+//            user.enterRoom(this);
+//        }
+//        inviteeList.addAll(users);
+//    }
 
-    public void enterUser(List<UserDTO> users) { /**/
-        for(UserDTO user : users){
-            user.enterRoom(this);
-        }
-        inviteeList.addAll(users);
-    }
+//
 
-    /**
-     * 해당 유저를 방에서 내보냄
-     * @param user 내보낼 유저
-     */
-    public void exitUser(UserDTO user) { /**/
-        user.exitRoom(this);
-        inviteeList.remove(user); // 해당 유저를 방에서 내보냄
-
-        if (inviteeList.size() < 1) { // 모든 인원이 다 방을 나갔다면
-           // RoomManager.removeRoom(this); // 이 방을 제거한다.
-            return;
-        }
-
-        if (inviteeList.size() < 2) { // 방에 남은 인원이 1명 이하라면
-            this.roomOwner = inviteeList.get(0); // 리스트의 첫번째 유저가 방장이 된다.
-            return;
-        }
-    }
-
-    /**
-     * 해당 룸의 유저를 다 퇴장시키고 삭제함
-     */
-    public void close() { /**/
-        for (UserDTO user : inviteeList) {
-            user.exitRoom(this);
-        }
-        this.inviteeList.clear();
-        this.inviteeList = null;
-    }
 
     // 게임 로직
 
@@ -87,33 +59,8 @@ public class ChatRoomDTO {
     }
 
 
-    public void setRoomName(String name) { // 방 이름을 설정
-        this.roomName = name;
-    }
 
-    public UserDTO getUserByNickName(String nickName) { // 닉네임을 통해서 방에 속한 유저를 리턴함 /**/
 
-        for (UserDTO user : inviteeList) {
-            if (user.getNickName().equals(nickName)) {
-                return user; // 유저를 찾았다면
-            }
-        }
-        return null; // 찾는 유저가 없다면
-    }
-
-    public UserDTO getUser(UserDTO user) { // GameUser 객체로 get
-
-        int idx = inviteeList.indexOf(user);
-
-        // 유저가 존재한다면(gameUser의 equals로 비교)
-        if(idx > 0){
-            return inviteeList.get(idx);
-        }
-        else{
-            // 유저가 없다면
-            return null;
-        }
-    }
 
     public String getRoomName() { // 방 이름을 가져옴
         return roomName;
@@ -123,17 +70,6 @@ public class ChatRoomDTO {
         return inviteeList.size();
     }
 
-    public UserDTO getOwner() { // 방장을 리턴 /**/
-        return roomOwner;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public List getInviteeList() {
         return inviteeList;
@@ -141,14 +77,6 @@ public class ChatRoomDTO {
 
     public void setInviteeList(List inviteeList) {
         this.inviteeList = inviteeList;
-    }
-
-    public UserDTO getRoomOwner() { /**/
-        return roomOwner;
-    }
-
-    public void setRoomOwner(UserDTO roomOwner) { /**/
-        this.roomOwner = roomOwner;
     }
 
 /*
