@@ -1,6 +1,5 @@
 package Client.controller;
 
-import Client.DTO.RoomManager;
 import Client.main.WindowOpenManager;
 import Client.service.UICommonService;
 import Client.service.CreateChatService;
