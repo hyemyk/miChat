@@ -25,7 +25,6 @@ public class RoomManager {
         return room;
     }
 
-
     /**
      * 유저 리스트로 방을 생성
      *  users 입장시킬 유저 리스트

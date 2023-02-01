@@ -7,7 +7,8 @@ public class ChatRoomDTO {
     private List<UserDTO> inviteeList;
     private String roomName; // 방 이름
 
-    public ChatRoomDTO(String roomName) { // 유저가 방을 만들때
+
+    public ChatRoomDTO(String roomName) { // 유저가 방을 만들때 생성자
         this.roomName = roomName;
     }
 
