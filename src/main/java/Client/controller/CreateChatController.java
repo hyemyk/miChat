@@ -25,7 +25,9 @@ public class CreateChatController implements Initializable {
         String rName = roomName.getText();
         String participant = participant1.getText();
         Boolean result = (new CreateChatService()).check(rName, participant);
-        System.out.println(windowOpenManager);
+
+
+
         if (result) {
             windowOpenManager.chatRoomOpen();
             UICommonService.windowClose(createChatForm);
