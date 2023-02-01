@@ -2,15 +2,12 @@ package Client.DTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class RoomManager {
-    private static List<ChatRoomDTO> roomList; // 방의 리스트
-    private static AtomicInteger atomicInteger;
+    private static ArrayList<ChatRoomDTO> roomList; // 방의 리스트
 
     static {
         roomList = new ArrayList<ChatRoomDTO>();
-        atomicInteger = new AtomicInteger();
     }
 
     public RoomManager() {
@@ -21,30 +18,13 @@ public class RoomManager {
      * 빈 룸을 생성
      * return ChatRoom
      */
-    public static ChatRoomDTO createRoom() { // 룸을 새로 생성(빈 방)
-        int roomId = atomicInteger.incrementAndGet();// room id 채번
-        ChatRoomDTO room = new ChatRoomDTO(roomId);
+    public ChatRoomDTO createRoom(String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
+        ChatRoomDTO room = new ChatRoomDTO(roomName);
         roomList.add(room);
         System.out.println("Room Created!");
         return room;
     }
 
-    /**
-     * 방을 생성함과 동시에 방장을 만들어줌
-     * owner 방장
-     * ChatRoom
-     */
-    public static ChatRoomDTO createRoom(UserDTO owner) { // 유저가 방을 생성할 때 사용(유저가 방장으로 들어감)
-        int roomId = atomicInteger.incrementAndGet();// room id 채번
-
-        ChatRoomDTO room = new ChatRoomDTO(roomId);
-        room.enterUser(owner);
-        room.setOwner(owner);
-
-        roomList.add(room);
-        System.out.println("Room Created!");
-        return room;
-    }
 
     /**
      * 유저 리스트로 방을 생성

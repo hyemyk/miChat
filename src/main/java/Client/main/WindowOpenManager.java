@@ -15,7 +15,6 @@ public class WindowOpenManager {
     private Stage stage;
     private String id;
 
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -63,6 +62,7 @@ public class WindowOpenManager {
 
             CreateChatController createChatCon = loader.getController();
             createChatCon.setCreateChatForm(createChatForm);
+            createChatCon.setLoginId(id);
 
 
             createChatCon.setWindowOpenManager(this);
