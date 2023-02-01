@@ -11,7 +11,7 @@ public class RoomManager {
     }
 
     public RoomManager() {
-        System.out.println("이거 지울 것");
+        System.out.println("이거 지울 것2");
 
     }
 
