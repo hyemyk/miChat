@@ -1,5 +1,6 @@
 package Client.controller;
 
+import Client.DTO.UserDTO;
 import Client.main.WindowOpenManager;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -16,7 +17,7 @@ public class MainController implements Initializable {
 
     }
 
-    public void setLoginId(String id) {
+    public void setLoginUser(UserDTO loginUserInfo) {
     }
 
     public void setMainForm(Parent mainForm) {

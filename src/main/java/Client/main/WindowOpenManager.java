@@ -1,5 +1,6 @@
 package Client.main;
 
+import Client.DTO.UserDTO;
 import Client.controller.ChatRoomController;
 import Client.controller.CreateChatController;
 import Client.controller.MainController;
@@ -13,15 +14,17 @@ import java.io.IOException;
 
 public class WindowOpenManager {
     private Stage stage;
-    private String id;
+    private UserDTO loginUserInfo;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     //로그인 후 메인화면으로 전환
-    public void mainOpen(String id) {
-        this.id = id;
+    public void mainOpen(UserDTO loginUserInfo) {
+
+        this.loginUserInfo = loginUserInfo;
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 
         try {
@@ -35,7 +38,7 @@ public class WindowOpenManager {
             mainCon.setWindowOpenManager(this);//메인 화면 컨트롤러에 오프너 세팅
             this.setStage(stage);
 
-            mainCon.setLoginId(id);
+            mainCon.setLoginUser(loginUserInfo);
 
             Scene scene = new Scene(mainForm);
             System.out.println(stage);
@@ -50,7 +53,7 @@ public class WindowOpenManager {
 
 
 
-    //메인 화면에서 채팅방 생성 창 오픈
+    //메인 화면에서 채팅방 만들기 창 오픈
     public void createChatOpen() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createChat.fxml"));
 
@@ -62,7 +65,7 @@ public class WindowOpenManager {
 
             CreateChatController createChatCon = loader.getController();
             createChatCon.setCreateChatForm(createChatForm);
-            createChatCon.setLoginId(id);
+            createChatCon.setLoginUserInfo(loginUserInfo);
 
 
             createChatCon.setWindowOpenManager(this);

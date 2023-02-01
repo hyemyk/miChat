@@ -31,7 +31,9 @@ public class RoomManager {
      *  GameRoom
      */
     public static ChatRoomDTO createRoom(List users) {
+        int roomId = atomicInteger.incrementAndGet();// room id 채번
 
+        ChatRoomDTO room = new ChatRoomDTO(roomId);
         room.enterUser(users);
 
         roomList.add(room);

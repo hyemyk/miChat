@@ -1,5 +1,6 @@
 package Client.controller;
 
+import Client.DTO.UserDTO;
 import Client.main.WindowOpenManager;
 import Client.service.LoginService;
 import javafx.fxml.FXML;
@@ -26,10 +27,12 @@ public class LoginController implements Initializable {
     public void login() {
         String userId = id.getText();
         String password = pw.getText();
+        UserDTO loginUserInfo = new UserDTO(userId);
+
         Boolean result = (new LoginService()).login(userId, password);
 
         if (result) {
-            windowOpenManager.mainOpen(userId);
+            windowOpenManager.mainOpen(loginUserInfo);
         }
     }
 
