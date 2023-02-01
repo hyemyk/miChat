@@ -15,7 +15,6 @@ public class WindowOpenManager {
     private Stage stage;
     private String id;
 
-    Stage createChatStage = new Stage();
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -70,11 +69,13 @@ public class WindowOpenManager {
             this.setStage(stage);
 
 
- //           Stage createChatStage = new Stage();
+            Stage createChatStage = new Stage();
             createChatStage.setTitle("채팅방 만들기");
             Scene scene = new Scene(createChatForm);
             createChatStage.setScene(scene);
             createChatStage.show();
+
+
 
         } catch (IOException e) {
             UICommonService.msg("채팅방 만들기 화면에 문제가 발생했습니다. 관리자에게 문의하세요.");
@@ -90,10 +91,11 @@ public class WindowOpenManager {
             ChatRoomController Con = loader.getController();
             Con.setChatRoomForm(ChatRoomForm);
 
+            Stage chatRoom = new Stage();
             Scene scene = new Scene(ChatRoomForm);
-            createChatStage.setTitle("채팅방 화면");
-            createChatStage.setScene(scene);
-            createChatStage.show();
+            chatRoom.setTitle("채팅방 화면");
+            chatRoom.setScene(scene);
+            chatRoom.show();
         } catch (Exception e) {
             UICommonService.msg(" 관리자에게 문의하세요.");
             e.printStackTrace();

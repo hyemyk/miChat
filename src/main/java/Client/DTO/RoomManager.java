@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RoomManager {
-    private static List roomList; // 방의 리스트
+    private static List<ChatRoomDTO> roomList; // 방의 리스트
     private static AtomicInteger atomicInteger;
 
     static {
-        roomList = new ArrayList();
+        roomList = new ArrayList<ChatRoomDTO>();
         atomicInteger = new AtomicInteger();
     }
 
@@ -19,7 +19,7 @@ public class RoomManager {
 
     /**
      * 빈 룸을 생성
-     * @return GameRoom
+     * return ChatRoom
      */
     public static ChatRoomDTO createRoom() { // 룸을 새로 생성(빈 방)
         int roomId = atomicInteger.incrementAndGet();// room id 채번
@@ -48,8 +48,8 @@ public class RoomManager {
 
     /**
      * 유저 리스트로 방을 생성
-     * @param users 입장시킬 유저 리스트
-     * @return GameRoom
+     *  users 입장시킬 유저 리스트
+     *  GameRoom
      */
     public static ChatRoomDTO createRoom(List users) {
         int roomId = atomicInteger.incrementAndGet();// room id 채번
@@ -76,7 +76,7 @@ public class RoomManager {
 
     /**
      * 전달받은 룸을 제거
-     * @param room 제거할 룸
+     * room 제거할 룸
      */
     public static void removeRoom(ChatRoomDTO room) {
         room.close();
@@ -86,7 +86,7 @@ public class RoomManager {
 
     /**
      * 방의 현재 크기를 리턴
-     * @return 현재 size
+     * return 현재 size
      */
     public static int roomCount() {
         return roomList.size();
