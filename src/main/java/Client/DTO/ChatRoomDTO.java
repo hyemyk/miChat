@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ChatRoomDTO {
     private int id; // 룸 ID
-    private List userList;
+    private List<UserDTO> userList;
     private UserDTO roomOwner; // 방장
     private String roomName; // 방 이름
 
@@ -21,7 +21,7 @@ public class ChatRoomDTO {
         this.roomOwner = user; // 방장을 유저로 만든다.
     }
 
-    public ChatRoomDTO(List users) { // 유저 리스트가 방을 생성할
+    public ChatRoomDTO(List<UserDTO> users) { // 유저 리스트가 방을 생성할
         this.userList = users; // 유저리스트 복사
 
         // 룸 입장
@@ -37,7 +37,7 @@ public class ChatRoomDTO {
         userList.add(user);
     }
 
-    public void enterUser(List users) {
+    public void enterUser(List<UserDTO> users) {
         for(UserDTO gameUser : users){
             gameUser.enterRoom(this);
         }
