@@ -14,7 +14,6 @@ public class RoomManager {
 
     }
 
-
     public static ChatRoomDTO getRoom(ChatRoomDTO chatRoom){
 
         int idx = roomList.indexOf(chatRoom);
