@@ -1,7 +1,6 @@
 package Client.controller;
 
 import Client.DTO.RoomManager;
-import Client.DTO.UserDTO;
 import Client.main.WindowOpenManager;
 import Client.service.UICommonService;
 import Client.service.CreateChatService;
@@ -26,7 +25,7 @@ public class CreateChatController implements Initializable {
 
     private WindowOpenManager windowOpenManager;
     private Parent createChatForm;
-    private UserDTO loginUserInfo;
+    private String id;
     String makeList = "";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,7 +36,7 @@ public class CreateChatController implements Initializable {
 
     public void invite(){
         String invitee = iName.getText();
-        Boolean result = (new CreateChatService()).userCheck(loginUserInfo.getId(), invitee);
+        Boolean result = (new CreateChatService()).userCheck(id, invitee);
         Boolean listCheck = inviteeList.contains(invitee);
 
         if (result && !listCheck) {
@@ -84,7 +83,7 @@ public class CreateChatController implements Initializable {
         this.windowOpenManager = windowOpenManager;
     }
 
-    public void setLoginUserInfo(UserDTO loginUserInfo) {
-        this.loginUserInfo = loginUserInfo;
+    public void setLoginId(String id) {
+        this.id = id;
     }
 }
