@@ -12,6 +12,10 @@ package Client.service;
 //    }
 //}
 
+import Server.UserInfo;
+
+import java.util.Map;
+
 public class LoginService {
 
 //    // 성공시 0, 실패시 1을 반환
@@ -22,11 +26,21 @@ public class LoginService {
 //        }
 //        return LoginResult.FAIL;
 //    }
-    public String login(String userId, String password) {
-        if(userId.equals("admin")){
-            return "y";
+    public Boolean login(String userId, String password) {
+        UserInfo userInfo = new UserInfo();
+        Map<String, String> loginInfo = userInfo.getLoginInfo();
+
+        Boolean checkId = loginInfo.containsKey(userId);
+
+        if (checkId) {
+            if(loginInfo.get(userId).equals(password)) {
+                return true;
+            }
+            (new UICommonService()).msg("비밀번호가 일치하지 않습니다.");
+            return false;
         }
-        (new UICommonService()).msg("아이디와 비밀번호를 다시 확인 하세요.");
-        return "n";
+        (new UICommonService()).msg("존재하지 않는 아이디입니다.");
+        return false;
+
     }
 }

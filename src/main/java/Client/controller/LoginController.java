@@ -26,9 +26,9 @@ public class LoginController implements Initializable {
     public void login() {
         String userId = id.getText();
         String password = pw.getText();
-        String result = (new LoginService()).login(userId, password);
+        Boolean result = (new LoginService()).login(userId, password);
 
-        if (result.equals("y")) {
+        if (result) {
             windowOpenManager.mainOpen(userId);
         }
     }
