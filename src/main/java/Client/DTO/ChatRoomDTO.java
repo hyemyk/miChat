@@ -123,9 +123,7 @@ public class ChatRoomDTO {
         return inviteeList.size();
     }
 
-    public UserDTO getOwner() { // 방장을 리턴 /**/
-        return roomOwner;
-    }
+
 
     public int getId() {
         return id;
