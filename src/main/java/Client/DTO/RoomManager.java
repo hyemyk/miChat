@@ -14,17 +14,6 @@ public class RoomManager {
 
     }
 
-    /**
-     * 빈 룸을 생성
-     * return ChatRoom
-     */
-    public ChatRoomDTO createRoom(String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
-        ChatRoomDTO room = new ChatRoomDTO(roomName);
-        roomList.add(room);
-        userDTO.setRoomList(roomList);
-        System.out.println("Room Created!");
-        return room;
-    }
 
     public static ChatRoomDTO getRoom(ChatRoomDTO chatRoom){
 
@@ -38,15 +27,15 @@ public class RoomManager {
         }
     }
 
-    /**
-     * 전달받은 룸을 제거
-     * room 제거할 룸
-     */
-    public static void removeRoom(ChatRoomDTO room) {
-        room.close();
-        roomList.remove(room); // 전달받은 룸을 제거한다.
-        System.out.println("Room Deleted!");
-    }
+//    /**
+//     * 전달받은 룸을 제거
+//     * room 제거할 룸
+//     */
+//    public static void removeRoom(ChatRoomDTO room) {
+//        room.close();
+//        roomList.remove(room); // 전달받은 룸을 제거한다.
+//        System.out.println("Room Deleted!");
+//    }
 
     /**
      * 방의 현재 크기를 리턴

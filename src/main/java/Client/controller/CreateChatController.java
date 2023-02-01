@@ -27,18 +27,32 @@ public class CreateChatController implements Initializable {
     private WindowOpenManager windowOpenManager;
     private Parent createChatForm;
     private UserDTO loginUserInfo;
+
     String makeList = "";
+
+    CreateChatService createChatService = new CreateChatService();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+    }
+    public void setLoginUserInfo(UserDTO loginUserInfo) {
+        this.loginUserInfo = loginUserInfo;
     }
 
     ArrayList<String> inviteeList = new ArrayList<>();
 
     public void invite(){
+
         String invitee = iName.getText();
-        Boolean result = (new CreateChatService()).userCheck(loginUserInfo.getId(), invitee);
+
+        Boolean result = createChatService.userCheck(loginUserInfo.getId(), invitee);
         Boolean listCheck = inviteeList.contains(invitee);
+
+
+        System.out.println(result);
+        System.out.println(listCheck);
 
         if (result && !listCheck) {
             inviteeList.add(invitee);
@@ -55,16 +69,17 @@ public class CreateChatController implements Initializable {
     }
 
     public void create() {
+        inviteeList.add(loginUserInfo.getId());
+
         String roomName = rName.getText();
         String listBox = iList.getText();
-        Boolean result = (new CreateChatService()).createCheck(roomName, listBox);
+
+        Boolean result = createChatService.createCheck(roomName, listBox);
 
 
         if (result) {
-            RoomManager roomManager = new RoomManager();
-            roomManager.createRoom(roomName, inviteeList);
-
-            windowOpenManager.chatRoomOpen();
+            createChatService.createRoom(loginUserInfo, roomName, inviteeList);
+            windowOpenManager.chatRoomOpen(roomName, inviteeList);
             UICommonService.windowClose(createChatForm);
 
         } else {
@@ -84,7 +99,5 @@ public class CreateChatController implements Initializable {
         this.windowOpenManager = windowOpenManager;
     }
 
-    public void setLoginUserInfo(UserDTO loginUserInfo) {
-        this.loginUserInfo = loginUserInfo;
-    }
+
 }

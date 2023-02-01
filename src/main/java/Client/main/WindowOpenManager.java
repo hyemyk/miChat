@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class WindowOpenManager {
     private Stage stage;
@@ -86,13 +87,15 @@ public class WindowOpenManager {
         }
     }
 
-    public void chatRoomOpen() {
+    public void chatRoomOpen(String roomName, ArrayList<String> inviteeList) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatRoom.fxml"));
         try {
             Parent ChatRoomForm = loader.load();
 
-            ChatRoomController Con = loader.getController();
-            Con.setChatRoomForm(ChatRoomForm);
+            ChatRoomController con = loader.getController();
+            con.setChatRoomForm(ChatRoomForm);
+            con.setShowRoomInfo(roomName, inviteeList);
+
 
             Stage chatRoom = new Stage();
             Scene scene = new Scene(ChatRoomForm);

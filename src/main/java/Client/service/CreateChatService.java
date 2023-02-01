@@ -1,13 +1,19 @@
 package Client.service;
 
+import Client.DTO.ChatRoomDTO;
+import Client.DTO.UserDTO;
 import Server.UserInfo;
 
+import java.util.ArrayList;
 import java.util.Map;
+
+import static Client.DTO.RoomManager.roomList;
 
 public class CreateChatService {
 
     public boolean userCheck(String id, String inviteeName) {
-
+        System.out.println("id: " + id);
+        System.out.println("inviteeName: " + inviteeName);
         if(inviteeName == null) {
             (new UICommonService()).msg("초대할 사람을 입력해 주세요.");
             return false;
@@ -38,8 +44,13 @@ public class CreateChatService {
 //        if (roomName.equals()){
 //        }
 
-
-
         return true;
+    }
+
+    public void createRoom(UserDTO loginUserInfo, String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
+        ChatRoomDTO room = new ChatRoomDTO(roomName);
+        roomList.add(room);
+        loginUserInfo.setRoomList(roomList);
+        System.out.println("Room Created!");
     }
 }

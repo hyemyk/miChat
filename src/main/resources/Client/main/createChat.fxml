@@ -41,7 +41,7 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="330.0">
          <children>
-            <Button fx:id="inviteBtn1" mnemonicParsing="false" onAction="#invite" prefHeight="50.0" prefWidth="100.0" text="초대">
+            <Button fx:id="inviteBtn" mnemonicParsing="false" onAction="#invite" prefHeight="50.0" prefWidth="100.0" text="초대">
                <font>
                   <Font size="20.0" />
                </font>

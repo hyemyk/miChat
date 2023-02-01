@@ -13,12 +13,12 @@
    <children>
       <HBox alignment="BOTTOM_CENTER" prefHeight="10.0" prefWidth="330.0" spacing="70.0">
          <children>
-            <Label text="roomName">
+            <Label text="채팅방 이름">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="member">
+            <Label text="참가 인원">
                <font>
                   <Font size="18.0" />
                </font>
@@ -33,24 +33,24 @@
       </HBox>
       <HBox alignment="TOP_CENTER" prefHeight="38.0" prefWidth="330.0" spacing="27.0">
          <children>
-            <TextField fx:id="roomName" editable="false" prefHeight="20.0" prefWidth="150.0" />
-            <TextField fx:id="member" editable="false" prefHeight="20.0" prefWidth="150.0" />
+            <TextField fx:id="showName" editable="false" prefHeight="20.0" prefWidth="150.0" />
+            <TextField fx:id="showNo" editable="false" prefHeight="20.0" prefWidth="150.0" />
          </children>
       </HBox>
-      <Label text="chatContent">
+      <Label text="채팅방 내용">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <HBox prefHeight="292.0" prefWidth="330.0">
          <children>
-            <TextArea fx:id="content" editable="false" prefHeight="100.0" prefWidth="335.0" />
+            <TextArea fx:id="showContent" editable="false" prefHeight="100.0" prefWidth="335.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="330.0" spacing="10.0">
          <children>
-            <TextArea fx:id="contentSend" prefHeight="59.0" prefWidth="216.0" />
-            <Button fx:id="sendBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="send">
+            <TextArea fx:id="sendText" prefHeight="59.0" prefWidth="216.0" />
+            <Button fx:id="sendBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="보내기">
                <font>
                   <Font size="18.0" />
                </font></Button>
@@ -58,7 +58,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="330.0">
          <children>
-            <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="exit">
+            <Button fx:id="exitBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="나가기">
                <font>
                   <Font size="18.0" />
                </font></Button>
