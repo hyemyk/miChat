@@ -19,7 +19,7 @@ public class RoomManager {
 
     /**
      * 빈 룸을 생성
-     * @return GameRoom
+     * return ChatRoom
      */
     public static ChatRoomDTO createRoom() { // 룸을 새로 생성(빈 방)
         int roomId = atomicInteger.incrementAndGet();// room id 채번

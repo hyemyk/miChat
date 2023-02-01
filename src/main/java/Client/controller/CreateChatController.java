@@ -28,7 +28,7 @@ public class CreateChatController implements Initializable {
         System.out.println(windowOpenManager);
         if (result) {
             windowOpenManager.chatRoomOpen();
-
+            UICommonService.windowClose(createChatForm);
         }else {
             UICommonService.msg("다시 입력하여 주세요.");
         }

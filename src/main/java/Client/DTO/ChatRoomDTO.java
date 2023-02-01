@@ -46,7 +46,7 @@ public class ChatRoomDTO {
 
     /**
      * 해당 유저를 방에서 내보냄
-     * @param user 내보낼 유저
+     * user 내보낼 유저
      */
     public void exitUser(UserDTO user) {
         user.exitRoom(this);
@@ -78,7 +78,7 @@ public class ChatRoomDTO {
 
     /**
      * 해당 byte 배열을 방의 모든 유저에게 전송
-     * @param data 보낼 data
+     * data 보낼 data
      */
     public void broadcast(byte[] data) {
         for (UserDTO user : userList) { // 방에 속한 유저의 수만큼 반복
