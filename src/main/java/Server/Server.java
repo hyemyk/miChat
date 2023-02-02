@@ -15,21 +15,20 @@ import java.util.Vector;
 import java.util.concurrent.Executors;
 
 public class Server {
-    private static AsynchronousChannelGroup channelGroup;
-    private static AsynchronousServerSocketChannel socketChannel;
+    private AsynchronousChannelGroup channelGroup;
+    private AsynchronousServerSocketChannel socketChannel;
     List<Client> connections = new Vector<Client>();
 
     private static final Charset charset = Charset.forName("utf-8");
 
-
-
     public static void main(String[] args) throws IOException {
+        Server svr = new Server();
         System.out.println("[서버 시작]");
-        listen(50001);
-        acceptClient();
+        svr.listen(50001);
+        svr.acceptClient();
     }
 
-    private static void listen(int port) throws IOException {
+    private void listen(int port) throws IOException {
         //비동기 채널 그룹 생성
         channelGroup = AsynchronousChannelGroup.withFixedThreadPool(10, Executors.defaultThreadFactory());
 
@@ -40,13 +39,15 @@ public class Server {
         socketChannel.bind(new InetSocketAddress(port));
     }
 
-    private static void acceptClient() {
+    private void acceptClient() {
         //클라이언트 연결 수락하기
         socketChannel.accept(
                 null,
                 new CompletionHandler<AsynchronousSocketChannel, Void>() {
                     @Override
                     public void completed(AsynchronousSocketChannel clientSocket, Void attachment) {
+                        System.out.println("acceptClient completed thread: " + Thread.currentThread().getName());
+
                         //클라이언트가 보낸 데이터 받기
                         receive(clientSocket);
 
@@ -55,7 +56,7 @@ public class Server {
                         // System.out.println(connections);
 
                         //다음 클라이언트 연결 수락하기
-                        socketChannel.accept(null, this);
+                        //socketChannel.accept(null, this);
                     }
 
                     @Override
@@ -76,6 +77,7 @@ public class Server {
         clientSocket.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {
             @Override
             public void completed(Integer result, ByteBuffer attachment) {
+                System.out.println("receive completed thread: " + Thread.currentThread().getName());
                 try {
                     attachment.flip();
 
@@ -110,6 +112,7 @@ public class Server {
 
             @Override
             public void completed(Integer result, String attachment) {
+                System.out.println("send completed thread: " + Thread.currentThread().getName());
                 String threadName = Thread.currentThread().getName();
                 System.out.println("[" + threadName + "]" + "데이터 보냄: " + attachment);
 
