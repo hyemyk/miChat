@@ -82,6 +82,7 @@ public class CreateChatController implements Initializable {
             windowOpenManager.chatRoomOpen(roomName, inviteeList);
             UICommonService.windowClose(createChatForm);
 
+
         } else {
             UICommonService.msg("다시 입력하여 주세요.");
         }
@@ -98,6 +99,7 @@ public class CreateChatController implements Initializable {
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
         this.windowOpenManager = windowOpenManager;
     }
+
 
 
 }

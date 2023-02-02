@@ -22,7 +22,7 @@ public class Client {
             for (int i = 1; i <= 100; i++) {
                 //비동기 소켓 채널 생성
                 AsynchronousSocketChannel asc = AsynchronousSocketChannel.open();
-                System.out.println(asc);
+
                 //서버로 연결 요청하기
                 int count = i;
                 asc.connect(new InetSocketAddress("localhost", 50001), null, new CompletionHandler<Void, Void>() {
@@ -43,11 +43,11 @@ public class Client {
                 });
             }
 
-            //키보드 입력이 있을 때까지 대기
+          /*  //키보드 입력이 있을 때까지 대기
             try {
                 System.in.read();
             } catch (Exception e) {
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,7 +23,7 @@ public class ChatRoomController implements Initializable {
     @FXML
     private TextArea showContent;
     @FXML
-    private TextArea sendText;
+    private TextArea text;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,6 +36,12 @@ public class ChatRoomController implements Initializable {
     /*
 inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
  */
+
+    public void send(){
+        String sendText = text.getText();
+
+
+    }
     public void exitRoom(ChatRoomDTO room) {
 
         ChatRoomService chatRoomService = new ChatRoomService();
