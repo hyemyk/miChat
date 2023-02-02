@@ -1,6 +1,6 @@
 package Server;
 
-import Client.main.Client;
+import ChatProgram.main.Client;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -83,6 +83,7 @@ public class Server {
                     String threadName = Thread.currentThread().getName();
                     System.out.println("[" + threadName + "]" + "데이터 받음: " + receiveData);
 
+
                     //클라이언트 데이터 보내기
                     send(clientSocket, receiveData);
                 } catch (Exception e) {
@@ -103,7 +104,7 @@ public class Server {
 
     //클라이언트로 데이터 보내기
     public static void send(AsynchronousSocketChannel asc, String receiveData) {
-        String sendData = "Hello Client " + receiveData.substring(13);
+        String sendData = "Hello Client " + receiveData;
         ByteBuffer byteBuffer = charset.encode(sendData);
         asc.write(byteBuffer, sendData, new CompletionHandler<Integer, String>() {
 

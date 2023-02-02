@@ -1,17 +1,21 @@
-package Client.DTO;
+package ChatProgram.ChatRoomPkg;
 
 import java.net.Socket;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.util.ArrayList;
 
-public class UserDTO {
+public class User {
     private String id;	// 아이디
-    private ArrayList<ChatRoomDTO> roomList;  // 유저가 속한 룸 List
-    private Socket socket; // 소켓 object
 
-    public UserDTO() { // 아무런 정보가 없는 깡통 유저를 만들 때
+
+    private String pw; // 비밀번호
+    private ArrayList<ChatRoom> roomList;  // 유저가 속한 룸 List
+    private AsynchronousSocketChannel socket; // 소켓 object
+
+    public User() { // 아무런 정보가 없는 깡통 유저를 만들 때
     }
 
-    public UserDTO(String id) { // 아이디 정보만 가지고 생성
+    public User(String id) { // 아이디 정보만 가지고 생성
         this.id = id;
     }
 
@@ -19,7 +23,7 @@ public class UserDTO {
 //     * 방에 입장시킴
 //     * room  입장할 방
 //     */
-//    public void enterRoom(ChatRoomDTO room) {
+//    public void enterRoom(ChatRoom room) {
 //        room.enterUser(this); // 룸에 입장시킨 후
 //        this.room = room; // 유저가 속한 방을 룸으로 변경한다.(중요)
 //    }
@@ -29,23 +33,32 @@ public class UserDTO {
         return id;
     }
 
-//    public void setId(String id) {
-//        this.id = id;
-//    }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public ArrayList<ChatRoomDTO> getRoomList() {
+
+    public String getPw() {
+        return pw;
+    }
+
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
+
+    public ArrayList<ChatRoom> getRoomList() {
         return roomList;
     }
 
-    public void setRoomList(ArrayList<ChatRoomDTO> roomList) {
+    public void setRoomList(ArrayList<ChatRoom> roomList) {
         this.roomList = roomList;
     }
 
-    public Socket getSocket() {
+    public AsynchronousSocketChannel getSocket() {
         return socket;
     }
 
-    public void setSocket(Socket socket) {
+    public void setSocket(AsynchronousSocketChannel socket) {
         this.socket = socket;
     }
 

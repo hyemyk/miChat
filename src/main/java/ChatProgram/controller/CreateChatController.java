@@ -1,10 +1,9 @@
-package Client.controller;
+package ChatProgram.controller;
 
-import Client.DTO.RoomManager;
-import Client.DTO.UserDTO;
-import Client.main.WindowOpenManager;
-import Client.service.UICommonService;
-import Client.service.CreateChatService;
+import ChatProgram.ChatRoomPkg.User;
+import ChatProgram.main.WindowOpenManager;
+import ChatProgram.service.UICommonService;
+import ChatProgram.service.CreateChatService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -26,7 +25,7 @@ public class CreateChatController implements Initializable {
 
     private WindowOpenManager windowOpenManager;
     private Parent createChatForm;
-    private UserDTO loginUserInfo;
+    private User loginUserInfo;
 
     String makeList = "";
 
@@ -37,7 +36,7 @@ public class CreateChatController implements Initializable {
 
 
     }
-    public void setLoginUserInfo(UserDTO loginUserInfo) {
+    public void setLoginUserInfo(User loginUserInfo) {
         this.loginUserInfo = loginUserInfo;
     }
 

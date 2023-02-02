@@ -1,20 +1,19 @@
-package Client.DTO;
+package ChatProgram.ChatRoomPkg;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RoomManager {
-    public static ArrayList<ChatRoomDTO> roomList; // 방의 리스트
+    public static ArrayList<ChatRoom> roomList; // 방의 리스트
 
     static {
-        roomList = new ArrayList<ChatRoomDTO>();
+        roomList = new ArrayList<ChatRoom>();
     }
 
     public RoomManager() {
 
     }
 
-    public static ChatRoomDTO getRoom(ChatRoomDTO chatRoom){
+    public static ChatRoom getRoom(ChatRoom chatRoom){
 
         int idx = roomList.indexOf(chatRoom);
 
@@ -30,7 +29,7 @@ public class RoomManager {
 //     * 전달받은 룸을 제거
 //     * room 제거할 룸
 //     */
-//    public static void removeRoom(ChatRoomDTO room) {
+//    public static void removeRoom(ChatRoom room) {
 //        room.close();
 //        roomList.remove(room); // 전달받은 룸을 제거한다.
 //        System.out.println("Room Deleted!");

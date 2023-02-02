@@ -1,10 +1,10 @@
-package Client.main;
+package ChatProgram.main;
 
-import Client.DTO.UserDTO;
-import Client.controller.ChatRoomController;
-import Client.controller.CreateChatController;
-import Client.controller.MainController;
-import Client.service.UICommonService;
+import ChatProgram.ChatRoomPkg.User;
+import ChatProgram.controller.ChatRoomController;
+import ChatProgram.controller.CreateChatController;
+import ChatProgram.controller.MainController;
+import ChatProgram.service.UICommonService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,17 +15,16 @@ import java.util.ArrayList;
 
 public class WindowOpenManager {
     private Stage stage;
-    private UserDTO loginUserInfo;
+    private User loginUserInfo;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     //로그인 후 메인화면으로 전환
-    public void mainOpen(UserDTO loginUserInfo) {
+    public void mainOpen(User loginUserInfo) {
 
         this.loginUserInfo = loginUserInfo;
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 
         try {
@@ -95,6 +94,7 @@ public class WindowOpenManager {
             ChatRoomController con = loader.getController();
             con.setChatRoomForm(ChatRoomForm);
             con.setShowRoomInfo(roomName, inviteeList);
+            con.setSocket(loginUserInfo);
 
 
             Stage chatRoom = new Stage();

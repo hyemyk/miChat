@@ -1,4 +1,4 @@
-package Client.service;
+package ChatProgram.service;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;

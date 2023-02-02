@@ -1,6 +1,7 @@
-package Client.main;
+package ChatProgram.main;
 
-import Client.controller.LoginController;
+import ChatProgram.controller.LoginController;
+import ChatProgram.service.CommonUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
+import java.nio.charset.Charset;
 
 public class ChatApplication extends Application {
 
@@ -33,10 +39,9 @@ public class ChatApplication extends Application {
     }
 
     public static void main(String[] args) {
-       // Server server = new Server();
-       // server.serverStart(port);
-        launch();//test
-       // server.serverStop();
+        launch();
+
     }
 
 }
+

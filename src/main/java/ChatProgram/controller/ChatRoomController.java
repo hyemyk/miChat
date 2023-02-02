@@ -1,15 +1,15 @@
-package Client.controller;
+package ChatProgram.controller;
 
-import Client.DTO.ChatRoomDTO;
-import Client.DTO.UserDTO;
-import Client.service.ChatRoomService;
+import ChatProgram.ChatRoomPkg.ChatRoom;
+import ChatProgram.ChatRoomPkg.User;
+import ChatProgram.main.Client;
+import ChatProgram.service.ChatRoomService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -25,6 +25,8 @@ public class ChatRoomController implements Initializable {
     @FXML
     private TextArea text;
 
+    private User loginUserInfo;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -37,12 +39,16 @@ public class ChatRoomController implements Initializable {
 inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
  */
 
+    //텍스트 입력하고 보내기 버튼 클릭
     public void send(){
         String sendText = text.getText();
 
+        //서버에 소켓과 같이 텍스트 보내기
+        Client.receive(loginUserInfo.getSocket(), sendText);
 
+        //String content = showContent.setText();
     }
-    public void exitRoom(ChatRoomDTO room) {
+    public void exitRoom(ChatRoom room) {
 
         ChatRoomService chatRoomService = new ChatRoomService();
         chatRoomService.exitRoom(room);
@@ -52,5 +58,9 @@ inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
         showName.setText(roomName);
         showNo.setText(String.valueOf(inviteeList.size()));
 
+    }
+
+    public void setSocket(User loginUserInfo) {
+        this.loginUserInfo = loginUserInfo;
     }
 }

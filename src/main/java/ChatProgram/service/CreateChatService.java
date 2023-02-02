@@ -1,13 +1,13 @@
-package Client.service;
+package ChatProgram.service;
 
-import Client.DTO.ChatRoomDTO;
-import Client.DTO.UserDTO;
+import ChatProgram.ChatRoomPkg.ChatRoom;
+import ChatProgram.ChatRoomPkg.User;
 import Server.UserInfo;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-import static Client.DTO.RoomManager.roomList;
+import static ChatProgram.ChatRoomPkg.RoomManager.roomList;
 
 public class CreateChatService {
 
@@ -47,8 +47,8 @@ public class CreateChatService {
         return true;
     }
 
-    public void createRoom(UserDTO loginUserInfo, String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
-        ChatRoomDTO room = new ChatRoomDTO(roomName);
+    public void createRoom(User loginUserInfo, String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
+        ChatRoom room = new ChatRoom(roomName);
         roomList.add(room);
         loginUserInfo.setRoomList(roomList);
         System.out.println("Room Created!");

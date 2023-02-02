@@ -1,8 +1,9 @@
-package Client.controller;
+package ChatProgram.controller;
 
-import Client.DTO.UserDTO;
-import Client.main.WindowOpenManager;
-import Client.service.LoginService;
+import ChatProgram.ChatRoomPkg.User;
+import ChatProgram.main.Client;
+import ChatProgram.main.WindowOpenManager;
+import ChatProgram.service.LoginService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
@@ -27,12 +28,16 @@ public class LoginController implements Initializable {
     public void login() {
         String userId = id.getText();
         String password = pw.getText();
-        UserDTO loginUserInfo = new UserDTO(userId);
+       //User loginUserInfo = new User(userId);
 
         Boolean result = (new LoginService()).login(userId, password);
 
         if (result) {
+            User loginUserInfo = Client.socketConnect();
+            loginUserInfo.setId(userId);
+            loginUserInfo.setPw(password);
             windowOpenManager.mainOpen(loginUserInfo);
+
         }
     }
 

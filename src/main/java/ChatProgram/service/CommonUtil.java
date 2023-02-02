@@ -1,4 +1,4 @@
-package Client.service;
+package ChatProgram.service;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;

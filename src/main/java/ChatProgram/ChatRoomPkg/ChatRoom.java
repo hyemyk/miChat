@@ -1,35 +1,34 @@
-package Client.DTO;
+package ChatProgram.ChatRoomPkg;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ChatRoomDTO {
-    private List<UserDTO> inviteeList; // 방 참가자 리스트
+public class ChatRoom {
+    private List<User> inviteeList; // 방 참가자 리스트
     private String roomName; // 방 이름
 
 
-    public ChatRoomDTO(String roomName) { // 유저가 방을 만들때 생성자
+    public ChatRoom(String roomName) { // 유저가 방을 만들때 생성자
         this.roomName = roomName;
     }
 
 //
-//    public ChatRoomDTO(List<UserDTO> users) { // 유저 리스트가 방을 생성할 /**/
+//    public ChatRoom(List<User> users) { // 유저 리스트가 방을 생성할 /**/
 //        this.inviteeList = users; // 유저리스트 복사
 //
 //        // 룸 입장
-//        for(UserDTO user : users){
+//        for(User user : users){
 //            user.enterRoom(this);
 //        }
 //
 //    }
 
-//    public void enterUser(UserDTO user) {
+//    public void enterUser(User user) {
 //        user.enterRoom(this);
 //        inviteeList.add(user);
 //    }
 //
-//    public void enterUser(List<UserDTO> users) { /**/
-//        for(UserDTO user : users){
+//    public void enterUser(List<User> users) { /**/
+//        for(User user : users){
 //            user.enterRoom(this);
 //        }
 //        inviteeList.addAll(users);
@@ -45,7 +44,7 @@ public class ChatRoomDTO {
      * @param data 보낼 data
      */
     public void broadcast(byte[] data) {
-        for (UserDTO user : inviteeList) { // 방에 속한 유저의 수만큼 반복
+        for (User user : inviteeList) { // 방에 속한 유저의 수만큼 반복
             // 각 유저에게 데이터를 전송하는 메서드 호출~
             // ex) user.SendData(data);
 
@@ -85,7 +84,7 @@ public class ChatRoomDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ChatRoomDTO chatRoom = (ChatRoomDTO) o;
+        ChatRoom chatRoom = (ChatRoom) o;
 
         return id == chatRoom.id;
     }
