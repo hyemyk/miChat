@@ -54,7 +54,7 @@ public class Server {
                         //connections.add(client);
                         // System.out.println(connections);
 
-                        //다음 클라리언트 연결 수락하기
+                        //다음 클라이언트 연결 수락하기
                         socketChannel.accept(null, this);
                     }
 

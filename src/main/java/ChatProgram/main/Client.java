@@ -1,5 +1,6 @@
 package ChatProgram.main;
 
+import ChatProgram.ChatRoomPkg.ChatRoom;
 import ChatProgram.ChatRoomPkg.User;
 import ChatProgram.service.CommonUtil;
 
@@ -51,15 +52,15 @@ public class Client {
     }
 
     //서버로 데이터 보내기
-    public static void receive(AsynchronousSocketChannel asc,  String sendText) {
+    public static void receive(AsynchronousSocketChannel asc, String sendText, ChatRoom chatRoom) {
         ByteBuffer byteBuffer = CommonUtil.encode(sendText);
-
         asc.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
             public void completed(Integer result, Void attachment) {
                 System.out.println("데이터 보냄: " + sendText);
                 //서버가 보낸 데이터 받기
-                send(asc);
+                send(asc, chatRoom);
+
             }
 
             @Override
@@ -74,7 +75,8 @@ public class Client {
     }
 
     //서버가 보낸 데이터 받기
-    public static void send(AsynchronousSocketChannel asc) {
+    public static void send(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
+
         ByteBuffer byteBuffer = ByteBuffer.allocate(100);
         asc.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {
             @Override
@@ -84,6 +86,7 @@ public class Client {
                     Charset charset = Charset.forName("utf-8");
                     String receiveData = charset.decode(attachment).toString();
                     System.out.println("데이터 받음: " + receiveData);
+                    chatRoom.setChatContent(receiveData);
                     asc.close();
                 } catch (Exception e) {
                 }

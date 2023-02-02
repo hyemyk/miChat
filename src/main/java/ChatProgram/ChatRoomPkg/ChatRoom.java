@@ -1,11 +1,22 @@
 package ChatProgram.ChatRoomPkg;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatRoom {
-    private List<User> inviteeList; // 방 참가자 리스트
+    private ArrayList<String> inviteeList; // 방 참가자 리스트
     private String roomName; // 방 이름
+    private String chatContent; // 채팅 내용
 
+    public String getChatContent() {
+        return chatContent;
+    }
+
+    public void setChatContent(String chatContent) {
+        this.chatContent = chatContent;
+    }
+
+   // public ChatRoom() {}
 
     public ChatRoom(String roomName) { // 유저가 방을 만들때 생성자
         this.roomName = roomName;
@@ -44,7 +55,7 @@ public class ChatRoom {
      * @param data 보낼 data
      */
     public void broadcast(byte[] data) {
-        for (User user : inviteeList) { // 방에 속한 유저의 수만큼 반복
+       // for (User user : inviteeList) { // 방에 속한 유저의 수만큼 반복
             // 각 유저에게 데이터를 전송하는 메서드 호출~
             // ex) user.SendData(data);
 
@@ -54,7 +65,7 @@ public class ChatRoom {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-        }
+        //}
     }
 
 
@@ -70,12 +81,15 @@ public class ChatRoom {
     }
 
 
-    public List getInviteeList() {
+    public ArrayList<String> getInviteeList() {
         return inviteeList;
     }
 
-    public void setInviteeList(List inviteeList) {
+    public void setInviteeList(ArrayList<String> inviteeList) {
         this.inviteeList = inviteeList;
+    }
+
+    public void setRoomName(String roomName) {
     }
 
 /*

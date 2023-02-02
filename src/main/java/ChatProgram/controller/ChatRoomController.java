@@ -26,6 +26,7 @@ public class ChatRoomController implements Initializable {
     private TextArea text;
 
     private User loginUserInfo;
+    private ChatRoom chatRoom;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,9 +45,9 @@ inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
         String sendText = text.getText();
 
         //서버에 소켓과 같이 텍스트 보내기
-        Client.receive(loginUserInfo.getSocket(), sendText);
-
-        //String content = showContent.setText();
+        Client.receive(loginUserInfo.getSocket(), sendText, chatRoom);
+        System.out.println("chatRoom.getChatContent() : " + chatRoom.getChatContent());
+       // showContent.setText();
     }
     public void exitRoom(ChatRoom room) {
 
@@ -59,8 +60,15 @@ inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
         showNo.setText(String.valueOf(inviteeList.size()));
 
     }
+    public void setShowContent(ChatRoom content) {
+        showContent.setText(content.getChatContent());
+    }
 
     public void setSocket(User loginUserInfo) {
         this.loginUserInfo = loginUserInfo;
+    }
+
+    public void setChatRoomInfo(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
     }
 }

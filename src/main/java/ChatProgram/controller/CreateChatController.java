@@ -1,5 +1,6 @@
 package ChatProgram.controller;
 
+import ChatProgram.ChatRoomPkg.ChatRoom;
 import ChatProgram.ChatRoomPkg.User;
 import ChatProgram.main.WindowOpenManager;
 import ChatProgram.service.UICommonService;
@@ -72,13 +73,17 @@ public class CreateChatController implements Initializable {
 
         String roomName = rName.getText();
         String listBox = iList.getText();
-
+        System.out.println("roomName" + roomName);
         Boolean result = createChatService.createCheck(roomName, listBox);
 
 
         if (result) {
             createChatService.createRoom(loginUserInfo, roomName, inviteeList);
-            windowOpenManager.chatRoomOpen(roomName, inviteeList);
+            //ChatRoom chatRoom = new ChatRoom();
+            //chatRoom.setInviteeList(inviteeList);
+            //chatRoom.setRoomName(roomName);
+
+            windowOpenManager.chatRoomOpen(roomName,inviteeList);
             UICommonService.windowClose(createChatForm);
 
 

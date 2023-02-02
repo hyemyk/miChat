@@ -1,5 +1,6 @@
 package ChatProgram.main;
 
+import ChatProgram.ChatRoomPkg.ChatRoom;
 import ChatProgram.ChatRoomPkg.User;
 import ChatProgram.controller.ChatRoomController;
 import ChatProgram.controller.CreateChatController;
@@ -93,15 +94,18 @@ public class WindowOpenManager {
 
             ChatRoomController con = loader.getController();
             con.setChatRoomForm(ChatRoomForm);
+
+
             con.setShowRoomInfo(roomName, inviteeList);
             con.setSocket(loginUserInfo);
 
+            //con.setChatRoomInfo(chatRoom);
 
-            Stage chatRoom = new Stage();
+            Stage room = new Stage();
             Scene scene = new Scene(ChatRoomForm);
-            chatRoom.setTitle("채팅방 화면");
-            chatRoom.setScene(scene);
-            chatRoom.show();
+            room.setTitle("채팅방 화면");
+            room.setScene(scene);
+            room.show();
         } catch (Exception e) {
             UICommonService.msg(" 관리자에게 문의하세요.");
             e.printStackTrace();
