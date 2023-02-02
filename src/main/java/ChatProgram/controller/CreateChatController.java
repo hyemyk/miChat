@@ -43,7 +43,7 @@ public class CreateChatController implements Initializable {
 
     ArrayList<String> inviteeList = new ArrayList<>();
 
-    public void invite(){
+    public void invite() {
 
         String invitee = iName.getText();
 
@@ -69,21 +69,28 @@ public class CreateChatController implements Initializable {
     }
 
     public void create() {
+        // 내 자신을 inviteeList에 먼저 추가
         inviteeList.add(loginUserInfo.getId());
 
         String roomName = rName.getText();
         String listBox = iList.getText();
-        System.out.println("roomName" + roomName);
-        Boolean result = createChatService.createCheck(roomName, listBox);
 
+        //입력값 유무 체크
+        Boolean result = createChatService.createCheck(roomName, listBox);
 
         if (result) {
             createChatService.createRoom(loginUserInfo, roomName, inviteeList);
-            //ChatRoom chatRoom = new ChatRoom();
-            //chatRoom.setInviteeList(inviteeList);
-            //chatRoom.setRoomName(roomName);
 
-            windowOpenManager.chatRoomOpen(roomName,inviteeList);
+            /*ChatRoom chatRoom = new ChatRoom();
+            chatRoom.setInviteeList(inviteeList);
+            chatRoom.setRoomName(roomName);*/
+
+            //테스트 위해 일단 비활성화
+            //windowOpenManager.chatRoomOpen(roomName, inviteeList);
+
+            //클라이언트 소켓 담은 loginUserInfo 오프너에 보내주기
+            windowOpenManager.chatRoomOpen(loginUserInfo, roomName, inviteeList);
+
             UICommonService.windowClose(createChatForm);
 
 

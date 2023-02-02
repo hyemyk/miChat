@@ -28,7 +28,6 @@ public class User {
 //        this.room = room; // 유저가 속한 방을 룸으로 변경한다.(중요)
 //    }
 
-
     public String getId() {
         return id;
     }
@@ -61,7 +60,6 @@ public class User {
     public void setSocket(AsynchronousSocketChannel socket) {
         this.socket = socket;
     }
-
 
     /*
         equals와 hashCode를 override 해줘야, 동일유저를 비교할 수 있다

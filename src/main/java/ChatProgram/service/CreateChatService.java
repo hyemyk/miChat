@@ -48,9 +48,17 @@ public class CreateChatService {
     }
 
     public void createRoom(User loginUserInfo, String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
-        ChatRoom room = new ChatRoom(roomName);
-        roomList.add(room);
+        //ChatRoom 인스턴스 생성
+        ChatRoom createdRoom = new ChatRoom();
+        createdRoom.setRoomName(roomName);
+        createdRoom.setInviteeList(inviteeList);
+
+        //생성된 방을 RoomManager의 roomList에 추가
+        roomList.add(createdRoom);
+
+        //??????로그인 유저 정보에 생성된 모든 룸 정보 저장???????????
         loginUserInfo.setRoomList(roomList);
+
         System.out.println("Room Created!");
     }
 }

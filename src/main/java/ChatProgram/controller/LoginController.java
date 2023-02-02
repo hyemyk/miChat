@@ -28,7 +28,6 @@ public class LoginController implements Initializable {
     public void login() {
         String userId = id.getText();
         String password = pw.getText();
-       //User loginUserInfo = new User(userId);
 
         Boolean result = (new LoginService()).login(userId, password);
 

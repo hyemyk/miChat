@@ -1,7 +1,6 @@
 package ChatProgram.ChatRoomPkg;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChatRoom {
     private ArrayList<String> inviteeList; // 방 참가자 리스트
@@ -16,11 +15,10 @@ public class ChatRoom {
         this.chatContent = chatContent;
     }
 
-   // public ChatRoom() {}
 
-    public ChatRoom(String roomName) { // 유저가 방을 만들때 생성자
+/*    public ChatRoom(String roomName) { // 유저가 방을 만들때 생성자
         this.roomName = roomName;
-    }
+    }*/
 
 //
 //    public ChatRoom(List<User> users) { // 유저 리스트가 방을 생성할 /**/
@@ -47,7 +45,6 @@ public class ChatRoom {
 
 //
 
-
     // 게임 로직
 
     /**
@@ -67,10 +64,6 @@ public class ChatRoom {
 //			}
         //}
     }
-
-
-
-
 
     public String getRoomName() { // 방 이름을 가져옴
         return roomName;

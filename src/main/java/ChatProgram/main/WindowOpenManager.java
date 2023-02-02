@@ -87,16 +87,16 @@ public class WindowOpenManager {
         }
     }
 
-    public void chatRoomOpen(String roomName, ArrayList<String> inviteeList) {
+    public void chatRoomOpen(User loginUserInfo, String roomName, ArrayList<String> inviteeList) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatRoom.fxml"));
         try {
             Parent ChatRoomForm = loader.load();
 
             ChatRoomController con = loader.getController();
             con.setChatRoomForm(ChatRoomForm);
-
-
             con.setShowRoomInfo(roomName, inviteeList);
+
+            //소켓 담은 loginUserInfo 보내주기
             con.setSocket(loginUserInfo);
 
             //con.setChatRoomInfo(chatRoom);

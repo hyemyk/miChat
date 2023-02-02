@@ -17,9 +17,8 @@ public class Client {
         this.socketChannel = socketChannel;
         //receive(); // 매개값으로 AsynchronousSocketChannel 필드 초기화 후
     }
-    public static User  socketConnect() {
+    public static User socketConnect() {
         System.out.println("[클라이언트 시작]");
-
         User loginUserInfo = new User();
 
         try {
@@ -31,6 +30,7 @@ public class Client {
             asc.connect(new InetSocketAddress("localhost", 50001), null, new CompletionHandler<Void, Void>() {
                 @Override
                 public void completed(Void result, Void attachment) {
+                    System.out.println("client 연결요청 completed thread: " + Thread.currentThread().getName());
                     //서버로 데이터 보내기
                     //receive(asc);
                 }
@@ -87,7 +87,7 @@ public class Client {
                     String receiveData = charset.decode(attachment).toString();
                     System.out.println("데이터 받음: " + receiveData);
                     chatRoom.setChatContent(receiveData);
-                    asc.close();
+                    //asc.close();
                 } catch (Exception e) {
                 }
             }

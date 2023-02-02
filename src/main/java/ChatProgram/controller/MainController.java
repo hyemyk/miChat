@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     public WindowOpenManager windowOpenManager;
+    private User loginUserInfo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -18,6 +19,7 @@ public class MainController implements Initializable {
     }
 
     public void setLoginUser(User loginUserInfo) {
+        this.loginUserInfo = loginUserInfo;
     }
 
     public void setMainForm(Parent mainForm) {
