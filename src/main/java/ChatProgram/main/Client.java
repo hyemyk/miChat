@@ -12,6 +12,7 @@ import java.nio.charset.Charset;
 
 public class Client {
     AsynchronousSocketChannel socketChannel;
+
     Client(AsynchronousSocketChannel socketChannel) {
 
         this.socketChannel = socketChannel;
@@ -52,17 +53,21 @@ public class Client {
     }
 
     //서버로 데이터 보내기
-    public static void receive(AsynchronousSocketChannel asc, String sendText, ChatRoom chatRoom) {
+    public static ChatRoom send(AsynchronousSocketChannel asc, String sendText, ChatRoom chatRoom) {
+        ChatRoom chatRoomWithContent = new ChatRoom();
         ByteBuffer byteBuffer = CommonUtil.encode(sendText);
+
         asc.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
             public void completed(Integer result, Void attachment) {
                 System.out.println("데이터 보냄: " + sendText);
                 //서버가 보낸 데이터 받기
                 System.out.println("챗룸에서 client.receive로 보낸 소켓: " + asc);
-                System.out.println("챗룸에서 client.receive로 보낸 chatRoom: " + chatRoom);
+
                 receive(asc, chatRoom);
 
+                //ChatRoom chatRoomWithContent = receive(asc, chatRoom);
+                //System.out.println("챗룸에서 client.receive로 보낸 chatRoomWithContent.getChatContent(): " + chatRoomWithContent.getChatContent());
             }
 
             @Override
@@ -74,10 +79,12 @@ public class Client {
                 }
             }
         });
+        System.out.println("chatRoomWithContent: " + chatRoomWithContent);
+        return chatRoomWithContent;
     }
 
     //서버가 보낸 데이터 받기
-    public static void receive(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
+    public static ChatRoom receive(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
 
         ByteBuffer byteBuffer = ByteBuffer.allocate(100);
         asc.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {
@@ -89,6 +96,8 @@ public class Client {
                     String receiveData = charset.decode(attachment).toString();
                     System.out.println("데이터 받음: " + receiveData);
                     chatRoom.setChatContent(receiveData);
+                    System.out.println("서버로부터 받은 receiveData" + receiveData);
+                    System.out.println("chatRoom.getChatContent(): " + chatRoom.getChatContent());
                     //asc.close();
                 } catch (Exception e) {
                 }
@@ -103,5 +112,6 @@ public class Client {
                 }
             }
         });
+        return chatRoom;
     }
 }
