@@ -6,4 +6,6 @@ module main {
     opens ChatProgram.controller to javafx.fxml;
     exports ChatProgram.main;
     opens ChatProgram.main to javafx.fxml;
+    exports ChatProgram.ChatRoomPkg;
+    opens ChatProgram.ChatRoomPkg to javafx.fxml;
 }

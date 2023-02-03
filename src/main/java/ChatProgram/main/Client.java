@@ -52,7 +52,7 @@ public class Client {
         return loginUserInfo;
     }
 
-    //서버로 데이터 보내기
+    //서버로 데이터 보내기(원래 void)
     public static ChatRoom send(AsynchronousSocketChannel asc, String sendText, ChatRoom chatRoom) {
         ChatRoom chatRoomWithContent = new ChatRoom();
         ByteBuffer byteBuffer = CommonUtil.encode(sendText);
@@ -82,7 +82,7 @@ public class Client {
         return chatRoomWithContent;
     }
 
-    //서버가 보낸 데이터 받기
+    //서버가 보낸 데이터 받기(원래 void)
     public static ChatRoom receive(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
 
         ByteBuffer byteBuffer = ByteBuffer.allocate(100);

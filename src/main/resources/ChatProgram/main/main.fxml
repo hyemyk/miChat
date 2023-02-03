@@ -24,10 +24,10 @@
       <HBox prefHeight="359.0" prefWidth="430.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" />
-            <TableView prefHeight="224.0" prefWidth="320.0">
+            <TableView fx:id="roomTable" prefHeight="224.0" prefWidth="320.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="roomName" prefWidth="75.0" text="방 이름" />
+                  <TableColumn fx:id="inviteeList" prefWidth="214.39997711181638" text="참가자" />
               </columns>
             </TableView>
             <VBox prefHeight="200.0" prefWidth="100.0" />
@@ -35,7 +35,7 @@
       </HBox>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="refresh" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#refreshList" text="refresh" />
          </children>
          <padding>
             <Insets left="50.0" right="50.0" top="20.0" />
