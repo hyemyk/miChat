@@ -45,7 +45,7 @@ inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
         String sendText = text.getText();
 
         //서버에 소켓과 같이 텍스트 보내기
-        Client.receive(loginUserInfo.getSocket(), sendText, chatRoom);
+        Client.send(loginUserInfo.getSocket(), sendText, chatRoom);
         //System.out.println("chatRoom.getChatContent() : " + chatRoom.getChatContent());
         //showContent.setText();
     }

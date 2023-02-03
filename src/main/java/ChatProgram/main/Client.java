@@ -59,8 +59,7 @@ public class Client {
             public void completed(Integer result, Void attachment) {
                 System.out.println("데이터 보냄: " + sendText);
                 //서버가 보낸 데이터 받기
-                send(asc, chatRoom);
-
+                receive(asc, chatRoom);
             }
 
             @Override
