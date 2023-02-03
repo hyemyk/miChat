@@ -59,7 +59,9 @@ public class Client {
             public void completed(Integer result, Void attachment) {
                 System.out.println("데이터 보냄: " + sendText);
                 //서버가 보낸 데이터 받기
-                send(asc, chatRoom);
+                System.out.println("챗룸에서 client.receive로 보낸 소켓: " + asc);
+                System.out.println("챗룸에서 client.receive로 보낸 chatRoom: " + chatRoom);
+                receive(asc, chatRoom);
 
             }
 
@@ -75,7 +77,7 @@ public class Client {
     }
 
     //서버가 보낸 데이터 받기
-    public static void send(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
+    public static void receive(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
 
         ByteBuffer byteBuffer = ByteBuffer.allocate(100);
         asc.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {

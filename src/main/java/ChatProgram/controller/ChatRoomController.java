@@ -3,7 +3,6 @@ package ChatProgram.controller;
 import ChatProgram.ChatRoomPkg.ChatRoom;
 import ChatProgram.ChatRoomPkg.User;
 import ChatProgram.main.Client;
-import ChatProgram.service.ChatRoomService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ChatRoomController implements Initializable {
@@ -26,7 +24,7 @@ public class ChatRoomController implements Initializable {
     private TextArea text;
 
     private User loginUserInfo;
-    private ChatRoom chatRoom;
+    private ChatRoom createdRoom;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,26 +38,30 @@ public class ChatRoomController implements Initializable {
 inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
  */
 
+    public void setShowRoomInfo(ChatRoom createdRoom) {
+        this.createdRoom = createdRoom;
+
+        showName.setText(createdRoom.getRoomName());
+        showNo.setText(String.valueOf(createdRoom.getInviteeList().size()));
+
+    }
+
     //텍스트 입력하고 보내기 버튼 클릭
-    public void send(){
+    public void send() {
         String sendText = text.getText();
 
         //서버에 소켓과 같이 텍스트 보내기
-        Client.receive(loginUserInfo.getSocket(), sendText, chatRoom);
+        Client.receive(loginUserInfo.getSocket(), sendText, createdRoom);
         //System.out.println("chatRoom.getChatContent() : " + chatRoom.getChatContent());
         //showContent.setText();
     }
-    public void exitRoom(ChatRoom room) {
+//    public void exitRoom(ChatRoom room) {
+//
+//        ChatRoomService chatRoomService = new ChatRoomService();
+//        chatRoomService.exitRoom(room);
+//    }
 
-        ChatRoomService chatRoomService = new ChatRoomService();
-        chatRoomService.exitRoom(room);
-    }
 
-    public void setShowRoomInfo(String roomName, ArrayList<String> inviteeList) {
-        showName.setText(roomName);
-        showNo.setText(String.valueOf(inviteeList.size()));
-
-    }
     public void setShowContent(ChatRoom content) {
         showContent.setText(content.getChatContent());
     }
@@ -68,7 +70,7 @@ inviteeList 나를 지우고, roomList(내가 속한 방들)에서 룸 지우기
         this.loginUserInfo = loginUserInfo;
     }
 
-    public void setChatRoomInfo(ChatRoom chatRoom) {
-        this.chatRoom = chatRoom;
-    }
+/*    public void setChatRoomInfo(ChatRoom chatRoom) {
+        this.createdRoom = createdRoom;
+    }*/
 }

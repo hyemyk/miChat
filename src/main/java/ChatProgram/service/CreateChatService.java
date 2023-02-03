@@ -47,7 +47,7 @@ public class CreateChatService {
         return true;
     }
 
-    public void createRoom(User loginUserInfo, String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
+    public ChatRoom createRoom(User loginUserInfo, String roomName, ArrayList<String> inviteeList) { // 룸을 새로 생성
         //ChatRoom 인스턴스 생성
         ChatRoom createdRoom = new ChatRoom();
         createdRoom.setRoomName(roomName);
@@ -60,5 +60,7 @@ public class CreateChatService {
         loginUserInfo.setRoomList(roomList);
 
         System.out.println("Room Created!");
+
+        return createdRoom;
     }
 }

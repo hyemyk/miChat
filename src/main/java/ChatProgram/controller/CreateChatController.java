@@ -34,9 +34,8 @@ public class CreateChatController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
     }
+
     public void setLoginUserInfo(User loginUserInfo) {
         this.loginUserInfo = loginUserInfo;
     }
@@ -79,7 +78,7 @@ public class CreateChatController implements Initializable {
         Boolean result = createChatService.createCheck(roomName, listBox);
 
         if (result) {
-            createChatService.createRoom(loginUserInfo, roomName, inviteeList);
+            ChatRoom createdRoom = createChatService.createRoom(loginUserInfo, roomName, inviteeList);
 
             /*ChatRoom chatRoom = new ChatRoom();
             chatRoom.setInviteeList(inviteeList);
@@ -89,8 +88,7 @@ public class CreateChatController implements Initializable {
             //windowOpenManager.chatRoomOpen(roomName, inviteeList);
 
             //클라이언트 소켓 담은 loginUserInfo 오프너에 보내주기
-            windowOpenManager.chatRoomOpen(loginUserInfo, roomName, inviteeList);
-
+            windowOpenManager.chatRoomOpen(loginUserInfo, createdRoom);
             UICommonService.windowClose(createChatForm);
 
 
