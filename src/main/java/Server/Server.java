@@ -116,11 +116,11 @@ public class Server {
                 String threadName = Thread.currentThread().getName();
                 System.out.println("[" + threadName + "]" + "데이터 보냄: " + attachment);
 
-                try {
-                    asc.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    asc.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override

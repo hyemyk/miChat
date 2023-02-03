@@ -30,6 +30,7 @@ public class Client {
             asc.connect(new InetSocketAddress("localhost", 50001), null, new CompletionHandler<Void, Void>() {
                 @Override
                 public void completed(Void result, Void attachment) {
+                    System.out.println("client 연결요청 completed thread: " + Thread.currentThread().getName());
                     //서버로 데이터 보내기
                     //send(asc);
                 }
@@ -58,6 +59,8 @@ public class Client {
             public void completed(Integer result, Void attachment) {
                 System.out.println("데이터 보냄: " + sendText);
                 //서버가 보낸 데이터 받기
+                System.out.println("챗룸에서 client.receive로 보낸 소켓: " + asc);
+                System.out.println("챗룸에서 client.receive로 보낸 chatRoom: " + chatRoom);
                 receive(asc, chatRoom);
             }
 
@@ -84,7 +87,7 @@ public class Client {
                     String receiveData = charset.decode(attachment).toString();
                     System.out.println("데이터 받음: " + receiveData);
                     chatRoom.setChatContent(receiveData);
-                    asc.close();
+                   //asc.close();
                 } catch (Exception e) {
                 }
             }

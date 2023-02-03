@@ -16,6 +16,28 @@ public class ChatRoom {
     }
 
 
+    public String getRoomName() { // 방 이름을 가져옴
+        return roomName;
+    }
+
+    public int getUserSize() { // 유저의 수를 리턴
+        return inviteeList.size();
+    }
+
+
+    public ArrayList<String> getInviteeList() {
+        return inviteeList;
+    }
+
+    public void setInviteeList(ArrayList<String> inviteeList) {
+        this.inviteeList = inviteeList;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+
 /*    public ChatRoom(String roomName) { // 유저가 방을 만들때 생성자
         this.roomName = roomName;
     }*/
@@ -65,25 +87,6 @@ public class ChatRoom {
         //}
     }
 
-    public String getRoomName() { // 방 이름을 가져옴
-        return roomName;
-    }
-
-    public int getUserSize() { // 유저의 수를 리턴
-        return inviteeList.size();
-    }
-
-
-    public ArrayList<String> getInviteeList() {
-        return inviteeList;
-    }
-
-    public void setInviteeList(ArrayList<String> inviteeList) {
-        this.inviteeList = inviteeList;
-    }
-
-    public void setRoomName(String roomName) {
-    }
 
 /*
     @Override
