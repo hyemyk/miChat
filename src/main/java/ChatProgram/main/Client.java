@@ -30,9 +30,8 @@ public class Client {
             asc.connect(new InetSocketAddress("localhost", 50001), null, new CompletionHandler<Void, Void>() {
                 @Override
                 public void completed(Void result, Void attachment) {
-                    System.out.println("client 연결요청 completed thread: " + Thread.currentThread().getName());
                     //서버로 데이터 보내기
-                    //receive(asc);
+                    //send(asc);
                 }
 
                 @Override
@@ -52,7 +51,7 @@ public class Client {
     }
 
     //서버로 데이터 보내기
-    public static void receive(AsynchronousSocketChannel asc, String sendText, ChatRoom chatRoom) {
+    public static void send(AsynchronousSocketChannel asc,  String sendText, ChatRoom chatRoom) {
         ByteBuffer byteBuffer = CommonUtil.encode(sendText);
         asc.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
@@ -74,8 +73,7 @@ public class Client {
     }
 
     //서버가 보낸 데이터 받기
-    public static void send(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
-
+    public static void receive(AsynchronousSocketChannel asc, ChatRoom chatRoom) {
         ByteBuffer byteBuffer = ByteBuffer.allocate(100);
         asc.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {
             @Override
@@ -86,7 +84,7 @@ public class Client {
                     String receiveData = charset.decode(attachment).toString();
                     System.out.println("데이터 받음: " + receiveData);
                     chatRoom.setChatContent(receiveData);
-                    //asc.close();
+                    asc.close();
                 } catch (Exception e) {
                 }
             }
