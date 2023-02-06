@@ -56,14 +56,14 @@ public class Server extends Application{
             public void completed(AsynchronousSocketChannel socketChannel, Void attachment) {
                 try {
                     String message = "[연결 수락: "+socketChannel.getRemoteAddress() + " : "+Thread.currentThread().getName() + "]";
-                    //Platform.runLater(()->displayText(message));
+                    Platform.runLater(()->displayText(message));
                 }catch(IOException e) {
 
                 }
 
                 Client client = new Client(socketChannel);
                 connections.add(client);
-//                Platform.runLater(()->displayText("[연결 개수: "+connections.size() + "]"));
+                Platform.runLater(()->displayText("[연결 개수: "+connections.size() + "]"));
                 serverSocketChannel.accept(null, this); //실제 accept동작
             }
 

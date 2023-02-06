@@ -8,6 +8,8 @@ import java.nio.channels.CompletionHandler;
 import java.nio.charset.Charset;
 import java.util.concurrent.Executors;
 
+import Final.Controller.ChatRoomController;
+import Final.View.WindowOpenManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -25,6 +27,15 @@ public class Client {
     AsynchronousChannelGroup channelGroup;
     AsynchronousSocketChannel socketChannel;
 
+    TextArea txtDisplay;
+
+    public void setTxtDisplay(TextArea txtDisplay) {
+        this.txtDisplay = txtDisplay;
+    }
+    void displayText(String text) {
+        txtDisplay.appendText(text+"\n");
+    }
+
     //연결 시작
     public void startClient(String id) {
         try {
@@ -34,29 +45,33 @@ public class Client {
 
                 @Override
                 public void completed(Void result, Void attachment) {
-                    Platform.runLater(()->{
                         try {
-//                            displayText("[연결 완료: "+socketChannel.getRemoteAddress()+"]");
 
+                           String msg = "[연결 완료: "+socketChannel.getRemoteAddress()+"]";
+                            System.out.println(msg);
+                            System.out.println("받아온 ID: " + id);
+                            send2(id);
+
+//
+                            //JSON====================
                             JSONObject json = new JSONObject();
                             json.put("method", "id");
                             String data = json.toString();
                             //System.out.println(data);
                             send(data);
+                            //JSON====================
 
-                            //System.out.println("받아온 ID: " + id);
                             //btnConn.setText("stop");
                             //btnSend.setDisable(false);
                         }catch(Exception e) {
 
                         }
-                    });
                     receive(); //서버에서 보낸 데이터 받기
                 }
 
                 @Override
                 public void failed(Throwable exc, Void attachment) {
-//                    Platform.runLater(()->displayText("[서버 통신 실패]"));
+                    //Platform.runLater(()->displayText("[서버 통신 실패]"));
                     if(socketChannel.isOpen()) {
                         stopClient();
                     }
@@ -79,7 +94,7 @@ public class Client {
     }
 
     //서버로부터 데이터 받기
-    void receive() {
+   public void receive() {
         ByteBuffer byteBuffer = ByteBuffer.allocate(100);
         socketChannel.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>(){
 
@@ -89,8 +104,9 @@ public class Client {
                     attachment.flip();
                     Charset charset = Charset.forName("utf-8");
                     String data = charset.decode(attachment).toString();
-                    // Platform.runLater(()->displayText(data));
+                    Platform.runLater(()->displayText(data));
                     System.out.println(data);
+
                     ByteBuffer byteBuffer = ByteBuffer.allocate(100);
                     socketChannel.read(byteBuffer, byteBuffer,this); //데이터 다시 읽기
                 }catch(Exception e) {
@@ -100,7 +116,24 @@ public class Client {
 
             @Override
             public void failed(Throwable exc, ByteBuffer attachment) {
-                //  Platform.runLater(()->displayText("[서버 통신 실패]"));
+                //Platform.runLater(()->chatRoomCon.displayText("[서버 통신 실패]"));
+                stopClient();
+            }
+
+        });
+    }
+
+    public void send2(String data) {
+        Charset charset = Charset.forName("utf-8");
+        ByteBuffer byteBuffer = charset.encode(data);
+
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+            @Override
+            public void completed(Integer result, Void attachment) {
+            }
+
+            @Override
+            public void failed(Throwable exc, Void attachment) {
                 stopClient();
             }
 
@@ -108,27 +141,29 @@ public class Client {
     }
 
     //서버로 데이터 전송
-    void send(String data) {
+    public void send(String data) {
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
 
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
             @Override
             public void completed(Integer result, Void attachment) {
-                //Platform.runLater(()->displayText("[보내기 완료]"));
+                Platform.runLater(()->displayText("[보내기 완료]"));
             }
 
             @Override
             public void failed(Throwable exc, Void attachment) {
-                // Platform.runLater(()->displayText("[서버 통신 실패]"));
+                Platform.runLater(()->displayText("[서버 통신 실패]"));
                 stopClient();
             }
 
         });
     }
 
+
+
     // UI생성 코드
-//    TextArea txtDisplay;
+
 //    TextField txtInput;
 //    Button btnConn, btnSend;
 //
@@ -178,9 +213,14 @@ public class Client {
 //        primaryStage.show();
 //    }
 //
-//    void displayText(String text) {
-//        txtDisplay.appendText(text+"\n");
+
+
+
+//    public TextArea getTxtDisplay() {
+//        return txtDisplay;
 //    }
+
+
 
 
 }
