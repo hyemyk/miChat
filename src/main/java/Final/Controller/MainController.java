@@ -15,4 +15,12 @@ public class MainController {
 
     public void setLoginUser(String userId) {
     }
+
+    public void createChatOpen() {
+        System.out.println("윈도우오픈매니저: " + windowOpenManager);
+        windowOpenManager.createChatOpen();
+
+    }
+
+    public void refreshList() {}
 }
