@@ -18,6 +18,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 public class Client {
     AsynchronousChannelGroup channelGroup;
     AsynchronousSocketChannel socketChannel;
@@ -34,8 +37,14 @@ public class Client {
                     Platform.runLater(()->{
                         try {
 //                            displayText("[연결 완료: "+socketChannel.getRemoteAddress()+"]");
-                            send(id);
-                            System.out.println("받아온 ID: " + id);
+
+                            JSONObject json = new JSONObject();
+                            json.put("method", "id");
+                            String data = json.toString();
+                            //System.out.println(data);
+                            send(data);
+
+                            //System.out.println("받아온 ID: " + id);
                             //btnConn.setText("stop");
                             //btnSend.setDisable(false);
                         }catch(Exception e) {
@@ -81,7 +90,7 @@ public class Client {
                     Charset charset = Charset.forName("utf-8");
                     String data = charset.decode(attachment).toString();
                     // Platform.runLater(()->displayText(data));
-
+                    System.out.println(data);
                     ByteBuffer byteBuffer = ByteBuffer.allocate(100);
                     socketChannel.read(byteBuffer, byteBuffer,this); //데이터 다시 읽기
                 }catch(Exception e) {

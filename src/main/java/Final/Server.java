@@ -19,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class Server extends Application{
     //비동기 채널 그룹
@@ -54,14 +56,14 @@ public class Server extends Application{
             public void completed(AsynchronousSocketChannel socketChannel, Void attachment) {
                 try {
                     String message = "[연결 수락: "+socketChannel.getRemoteAddress() + " : "+Thread.currentThread().getName() + "]";
-                    Platform.runLater(()->displayText(message));
+                    //Platform.runLater(()->displayText(message));
                 }catch(IOException e) {
 
                 }
 
                 Client client = new Client(socketChannel);
                 connections.add(client);
-                Platform.runLater(()->displayText("[연결 개수: "+connections.size() + "]"));
+//                Platform.runLater(()->displayText("[연결 개수: "+connections.size() + "]"));
                 serverSocketChannel.accept(null, this); //실제 accept동작
             }
 
@@ -115,6 +117,15 @@ public class Server extends Application{
                         attachment.flip();
                         Charset charset = Charset.forName("utf-8");
                         String data = charset.decode(attachment).toString();
+                        //====================Json 시작
+                        JSONParser jsonParser = new JSONParser();
+                        JSONObject token = (JSONObject) jsonParser.parse(data);
+                        String method = token.get("method").toString();
+                        System.out.println(method);
+                        if(method.equals("id")){
+                            Platform.runLater(()->displayText("로그인 성공"));
+                        }
+                        //====================Json 끝
 
 
                         for(Client  client : connections) {

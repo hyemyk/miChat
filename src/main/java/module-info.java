@@ -1,6 +1,7 @@
 module main {
     requires javafx.controls;
     requires javafx.fxml;
+    requires json.simple;
 
     exports Final.Controller;
     opens Final.Controller to javafx.fxml;
