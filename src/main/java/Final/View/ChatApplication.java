@@ -1,7 +1,6 @@
 package Final.View;
 
 import Final.Controller.LoginController;
-import Final.View.WindowOpenManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +16,7 @@ public class ChatApplication extends Application {
         FXMLLoader loader = new FXMLLoader(ChatApplication.class.getResource("login.fxml"));
 
         System.out.println("로그인화면 로더 loader: " + loader);
+
         Parent loginForm = loader.load();
 
         WindowOpenManager windowOpenManager = new WindowOpenManager();

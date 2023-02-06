@@ -20,7 +20,7 @@ public class LoginController implements Initializable {
 
     public void login() {
         String userId = id.getText();
-        Client.startClient(userId);
+        new Client().startClient(userId);
         windowOpenManager.mainOpen(userId);
 
     }

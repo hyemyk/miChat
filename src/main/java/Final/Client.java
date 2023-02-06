@@ -23,7 +23,7 @@ public class Client {
     AsynchronousSocketChannel socketChannel;
 
     //연결 시작
-    void startClient() {
+    public void startClient(String id) {
         try {
             channelGroup = AsynchronousChannelGroup.withFixedThreadPool(Runtime.getRuntime().availableProcessors(), Executors.defaultThreadFactory());
             socketChannel = AsynchronousSocketChannel.open(channelGroup);
@@ -33,9 +33,10 @@ public class Client {
                 public void completed(Void result, Void attachment) {
                     Platform.runLater(()->{
                         try {
-                            displayText("[연결 완료: "+socketChannel.getRemoteAddress()+"]");
-                            btnConn.setText("stop");
-                            btnSend.setDisable(false);
+//                            displayText("[연결 완료: "+socketChannel.getRemoteAddress()+"]");
+                            send(id);
+                            //btnConn.setText("stop");
+                            //btnSend.setDisable(false);
                         }catch(Exception e) {
 
                         }
@@ -45,7 +46,7 @@ public class Client {
 
                 @Override
                 public void failed(Throwable exc, Void attachment) {
-                    Platform.runLater(()->displayText("[서버 통신 실패]"));
+//                    Platform.runLater(()->displayText("[서버 통신 실패]"));
                     if(socketChannel.isOpen()) {
                         stopClient();
                     }
@@ -57,11 +58,11 @@ public class Client {
 
     //연결 종료
     void stopClient() {
-        Platform.runLater(()->{
-            displayText("[연결 종료]");
-            btnConn.setText("start");
-            btnSend.setDisable(true);
-        });
+//        Platform.runLater(()->{
+//            displayText("[연결 종료]");
+//            btnConn.setText("start");
+//            btnSend.setDisable(true);
+//        });
         if(channelGroup!=null && !channelGroup.isShutdown()) {
             channelGroup.shutdown();
         }
@@ -78,7 +79,7 @@ public class Client {
                     attachment.flip();
                     Charset charset = Charset.forName("utf-8");
                     String data = charset.decode(attachment).toString();
-                    Platform.runLater(()->displayText(data));
+                    // Platform.runLater(()->displayText(data));
 
                     ByteBuffer byteBuffer = ByteBuffer.allocate(100);
                     socketChannel.read(byteBuffer, byteBuffer,this); //데이터 다시 읽기
@@ -89,7 +90,7 @@ public class Client {
 
             @Override
             public void failed(Throwable exc, ByteBuffer attachment) {
-                Platform.runLater(()->displayText("[서버 통신 실패]"));
+                //  Platform.runLater(()->displayText("[서버 통신 실패]"));
                 stopClient();
             }
 
@@ -109,7 +110,7 @@ public class Client {
 
             @Override
             public void failed(Throwable exc, Void attachment) {
-                Platform.runLater(()->displayText("[서버 통신 실패]"));
+                // Platform.runLater(()->displayText("[서버 통신 실패]"));
                 stopClient();
             }
 
@@ -117,58 +118,59 @@ public class Client {
     }
 
     // UI생성 코드
-    TextArea txtDisplay;
-    TextField txtInput;
-    Button btnConn, btnSend;
+//    TextArea txtDisplay;
+//    TextField txtInput;
+//    Button btnConn, btnSend;
+//
+//
+//    public void start(Stage primaryStage) throws Exception {
+//        // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+//        BorderPane root = new BorderPane();
+//        root.setPrefSize(500, 300);
+//
+//        txtDisplay = new TextArea();
+//        txtDisplay.setEditable(false);
+//        BorderPane.setMargin(txtDisplay, new Insets(0,0,2,0));
+//        root.setCenter(txtDisplay);
+//
+//        BorderPane bottom = new BorderPane();
+//        txtInput = new TextField();
+//        txtInput.setPrefSize(60, 30);
+//        BorderPane.setMargin(txtInput, new Insets(0,1,1,1));
+//
+//        btnConn = new Button("start");
+//        btnConn.setPrefSize(60, 30);
+//        //start stop 버튼이벤트 처리
+//        btnConn.setOnAction(e->{
+//            if(btnConn.getText().equals("start")) {
+//                startClient();
+//            }else if(btnConn.getText().equals("stop")) {
+//                stopClient();
+//            }
+//        });
+//
+//        btnSend = new Button("send");
+//        btnSend.setPrefSize(60, 30);
+//        btnSend.setDisable(true);
+//        //send 버튼 이벤트 처리
+//        btnSend.setOnAction(e->send(txtInput.getText()));
+//
+//        bottom.setCenter(txtInput);
+//        bottom.setLeft(btnConn);
+//        bottom.setRight(btnSend);
+//        root.setBottom(bottom);
+//
+//        Scene scene = new Scene(root);
+//        //       scene.getStylesheets().add(getClass().getResource("app.css").toString());
+//        primaryStage.setScene(scene);
+//        primaryStage.setTitle("Client");
+//        primaryStage.setOnCloseRequest(event->stopClient());
+//        primaryStage.show();
+//    }
+//
+//    void displayText(String text) {
+//        txtDisplay.appendText(text+"\n");
+//    }
 
-    
-    public void start(Stage primaryStage) throws Exception {
-        // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        BorderPane root = new BorderPane();
-        root.setPrefSize(500, 300);
-
-        txtDisplay = new TextArea();
-        txtDisplay.setEditable(false);
-        BorderPane.setMargin(txtDisplay, new Insets(0,0,2,0));
-        root.setCenter(txtDisplay);
-
-        BorderPane bottom = new BorderPane();
-        txtInput = new TextField();
-        txtInput.setPrefSize(60, 30);
-        BorderPane.setMargin(txtInput, new Insets(0,1,1,1));
-
-        btnConn = new Button("start");
-        btnConn.setPrefSize(60, 30);
-        //start stop 버튼이벤트 처리
-        btnConn.setOnAction(e->{
-            if(btnConn.getText().equals("start")) {
-                startClient();
-            }else if(btnConn.getText().equals("stop")) {
-                stopClient();
-            }
-        });
-
-        btnSend = new Button("send");
-        btnSend.setPrefSize(60, 30);
-        btnSend.setDisable(true);
-        //send 버튼 이벤트 처리
-        btnSend.setOnAction(e->send(txtInput.getText()));
-
-        bottom.setCenter(txtInput);
-        bottom.setLeft(btnConn);
-        bottom.setRight(btnSend);
-        root.setBottom(bottom);
-
-        Scene scene = new Scene(root);
-        //       scene.getStylesheets().add(getClass().getResource("app.css").toString());
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Client");
-        primaryStage.setOnCloseRequest(event->stopClient());
-        primaryStage.show();
-    }
-
-    void displayText(String text) {
-        txtDisplay.appendText(text+"\n");
-    }
 
 }
