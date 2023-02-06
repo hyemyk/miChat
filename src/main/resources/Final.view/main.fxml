@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Final.Controller.MainController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="chats" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#createChatOpen" text="create chat" />
+         </children>
+      </HBox>
+      <HBox prefHeight="359.0" prefWidth="430.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" />
+            <TableView fx:id="roomTable" prefHeight="224.0" prefWidth="320.0">
+              <columns>
+                <TableColumn fx:id="roomName" prefWidth="75.0" text="방 이름" />
+                  <TableColumn fx:id="inviteeList" prefWidth="214.39997711181638" text="참가자" />
+              </columns>
+            </TableView>
+            <VBox prefHeight="200.0" prefWidth="100.0" />
+         </children>
+      </HBox>
+      <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#refreshList" text="refresh" />
+         </children>
+         <padding>
+            <Insets left="50.0" right="50.0" top="20.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>
