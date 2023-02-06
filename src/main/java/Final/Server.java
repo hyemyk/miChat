@@ -115,7 +115,7 @@ public class Server extends Application{
                         attachment.flip();
                         Charset charset = Charset.forName("utf-8");
                         String data = charset.decode(attachment).toString();
-
+                        System.out.println("ServerId" + data);
 
                         for(Client  client : connections) {
                             client.send(data); //모든 클라이언트에게 보내기

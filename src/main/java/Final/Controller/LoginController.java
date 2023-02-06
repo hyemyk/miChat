@@ -16,18 +16,28 @@ public class LoginController implements Initializable {
     private TextField id;
 
     public WindowOpenManager windowOpenManager;
+
+    Client client = new Client();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     public void login() {
 
         String userId = id.getText();
-        new Client().startClient(userId);
-        windowOpenManager.mainOpen(userId);
+        client.startClient(userId);
+        System.out.println("ControllorId : " + userId);
+        windowOpenManager.mainOpen(userId,client);
 
     }
 
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
         this.windowOpenManager = windowOpenManager;
     }
+
+/*    public void setClient(Client client) {
+        this.client = client;
+    }*/
+
+
 }

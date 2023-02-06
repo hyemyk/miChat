@@ -18,7 +18,7 @@ public class MainController {
 
     public void createChatOpen() {
         System.out.println("윈도우오픈매니저: " + windowOpenManager);
-        windowOpenManager.createChatOpen();
+        windowOpenManager.createRoomOpen();
 
     }
 

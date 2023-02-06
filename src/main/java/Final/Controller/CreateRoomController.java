@@ -1,7 +1,7 @@
 package Final.Controller;
 
-import Final.View.WindowOpenManager;
 import Final.Service.UICommonService;
+import Final.View.WindowOpenManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -15,21 +15,27 @@ public class CreateRoomController implements Initializable {
     @FXML
     private TextField rName;
 
+    private Parent createRoomForm;
     private WindowOpenManager windowOpenManager;
-    private CreateRoomController createRoomForm;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void setCreateChatForm(Parent createChatForm) {
+    public void setCreateRoomForm(Parent createRoomForm) {
+        this.createRoomForm = createRoomForm;
     }
 
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
+        this.windowOpenManager = windowOpenManager;
     }
 
-    public void create() {}
+    public void create() {
+        windowOpenManager.chatRoomOpen();
+    }
 
-    public void cancel() {}
+    public void cancel() {
+        UICommonService.windowClose(createRoomForm);
+    }
 }

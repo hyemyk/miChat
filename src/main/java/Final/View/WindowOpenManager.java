@@ -1,5 +1,6 @@
 package Final.View;
 
+import Final.Client;
 import Final.Controller.ChatRoomController;
 import Final.Controller.CreateRoomController;
 import Final.Controller.MainController;
@@ -14,14 +15,16 @@ import java.io.IOException;
 public class WindowOpenManager {
     private Stage stage;
     private String userId;
+    private Client client;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     //로그인 후 메인화면으로 전환
-    public void mainOpen(String userId) {
+    public void mainOpen(String userId, Client client) {
         this.userId = userId;
+        this.client = client;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 
@@ -52,28 +55,29 @@ public class WindowOpenManager {
 
 
     //메인 화면에서 채팅방 만들기 창 오픈
-    public void createChatOpen() {
+    public void createRoomOpen() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createRoom.fxml"));
 
         try {
             System.out.println("createChat창 로더 : " + loader);
-            Parent createChatForm = loader.load();
-            System.out.println("createChat폼 : " + createChatForm);
+            Parent createRoomForm = loader.load();
+            System.out.println("createRoom폼 : " + createRoomForm);
 
 
-            CreateRoomController createChatCon = loader.getController();
-            createChatCon.setCreateChatForm(createChatForm);
+            CreateRoomController createRoomCon = loader.getController();
+            createRoomCon.setCreateRoomForm(createRoomForm);
 
 
-            createChatCon.setWindowOpenManager(this);
+            createRoomCon.setWindowOpenManager(this);
+            System.out.println();
             this.setStage(stage);
 
 
-            Stage createChatStage = new Stage();
-            createChatStage.setTitle("채팅방 만들기");
-            Scene scene = new Scene(createChatForm);
-            createChatStage.setScene(scene);
-            createChatStage.show();
+            Stage createRoomStage = new Stage();
+            createRoomStage.setTitle("채팅방 만들기");
+            Scene scene = new Scene(createRoomForm);
+            createRoomStage.setScene(scene);
+            createRoomStage.show();
 
 
 
@@ -83,13 +87,15 @@ public class WindowOpenManager {
         }
     }
 
-    public void chatRoomOpen(String userId) {
+    public void chatRoomOpen() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatRoom.fxml"));
         try {
             Parent ChatRoomForm = loader.load();
 
             ChatRoomController con = loader.getController();
             con.setChatRoomForm(ChatRoomForm);
+            con.setClient(client);
+
 
             //룸 이름, 참가 인원 띄우기 위한 메소드에 룸정보 보내기
            // con.setChatRoomForm(createdRoom);
