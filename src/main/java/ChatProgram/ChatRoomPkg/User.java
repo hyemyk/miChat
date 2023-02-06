@@ -37,11 +37,11 @@ public class User {
     }
 
     public ArrayList<ChatRoom> getRoomList() {
-        return myRoomList;
+        return roomList;
     }
 
     public void setRoomList(ArrayList<ChatRoom> myRoomList) {
-        this.myRoomList = myRoomList;
+        this.roomList = myRoomList;
         //myRoomList.add(createdRoom);
     }
 

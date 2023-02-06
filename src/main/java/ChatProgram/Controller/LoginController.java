@@ -35,7 +35,7 @@ public class LoginController implements Initializable {
         if (result) {
             User loginUserInfo = Client.socketConnect();
             loginUserInfo.setId(userId);
-            loginUserInfo.setPw(password);
+            //loginUserInfo.setPw(password);
             windowOpenManager.mainOpen(loginUserInfo);
 
         }

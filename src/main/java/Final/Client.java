@@ -80,7 +80,7 @@ public class Client {
                     Charset charset = Charset.forName("utf-8");
                     String data = charset.decode(attachment).toString();
                     // Platform.runLater(()->displayText(data));
-
+                    System.out.println(data);
                     ByteBuffer byteBuffer = ByteBuffer.allocate(100);
                     socketChannel.read(byteBuffer, byteBuffer,this); //데이터 다시 읽기
                 }catch(Exception e) {
