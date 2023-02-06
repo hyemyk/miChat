@@ -1,11 +1,9 @@
-package ChatProgram.main;
+package Final.View;
 
-import ChatProgram.ChatRoomPkg.ChatRoom;
-import ChatProgram.ChatRoomPkg.User;
-import ChatProgram.Controller.ChatRoomController;
-import ChatProgram.Controller.CreateChatController;
-import ChatProgram.Controller.MainController;
-import ChatProgram.service.UICommonService;
+import Final.Controller.ChatRoomController;
+import Final.Controller.CreateRoomController;
+import Final.Controller.MainController;
+import Final.Service.UICommonService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,16 +13,16 @@ import java.io.IOException;
 
 public class WindowOpenManager {
     private Stage stage;
-    private User loginUserInfo;
+    private String userId;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     //로그인 후 메인화면으로 전환
-    public void mainOpen(User loginUserInfo) {
+    public void mainOpen(String userId) {
+        this.userId = userId;
 
-        this.loginUserInfo = loginUserInfo;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
 
         try {
@@ -38,7 +36,7 @@ public class WindowOpenManager {
             mainCon.setWindowOpenManager(this);//메인 화면 컨트롤러에 오프너 세팅
             this.setStage(stage);
 
-            mainCon.setLoginUser(loginUserInfo);
+            mainCon.setLoginUser(userId);
 
             Scene scene = new Scene(mainForm);
             System.out.println(stage);
@@ -63,9 +61,8 @@ public class WindowOpenManager {
             System.out.println("createChat폼 : " + createChatForm);
 
 
-            CreateChatController createChatCon = loader.getController();
+            CreateRoomController createChatCon = loader.getController();
             createChatCon.setCreateChatForm(createChatForm);
-            createChatCon.setLoginUserInfo(loginUserInfo);
 
 
             createChatCon.setWindowOpenManager(this);
@@ -86,7 +83,7 @@ public class WindowOpenManager {
         }
     }
 
-    public void chatRoomOpen(User loginUserInfo, ChatRoom createdRoom) {
+    public void chatRoomOpen(String userId) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatRoom.fxml"));
         try {
             Parent ChatRoomForm = loader.load();
@@ -95,10 +92,10 @@ public class WindowOpenManager {
             con.setChatRoomForm(ChatRoomForm);
 
             //룸 이름, 참가 인원 띄우기 위한 메소드에 룸정보 보내기
-            con.setShowRoomInfo(createdRoom);
+           // con.setChatRoomForm(createdRoom);
 
             //소켓 담은 loginUserInfo 보내주기
-            con.setSocket(loginUserInfo);
+            //con.setSocket(loginUserInfo);
 
             //우선 보류
             //con.setChatRoomInfo(createdRoom);

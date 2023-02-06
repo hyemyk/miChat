@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Client extends Application {
+public class Client {
     AsynchronousChannelGroup channelGroup;
     AsynchronousSocketChannel socketChannel;
 
@@ -121,9 +121,9 @@ public class Client extends Application {
     TextField txtInput;
     Button btnConn, btnSend;
 
-    @Override
+    
     public void start(Stage primaryStage) throws Exception {
-       // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        // Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         BorderPane root = new BorderPane();
         root.setPrefSize(500, 300);
 
@@ -160,7 +160,7 @@ public class Client extends Application {
         root.setBottom(bottom);
 
         Scene scene = new Scene(root);
- //       scene.getStylesheets().add(getClass().getResource("app.css").toString());
+        //       scene.getStylesheets().add(getClass().getResource("app.css").toString());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Client");
         primaryStage.setOnCloseRequest(event->stopClient());
@@ -171,8 +171,4 @@ public class Client extends Application {
         txtDisplay.appendText(text+"\n");
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }
-

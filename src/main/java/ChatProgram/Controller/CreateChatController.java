@@ -1,4 +1,4 @@
-package ChatProgram.controller;
+package ChatProgram.Controller;
 
 import ChatProgram.ChatRoomPkg.ChatRoom;
 import ChatProgram.ChatRoomPkg.User;

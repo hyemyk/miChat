@@ -1,6 +1,7 @@
-package ChatProgram.main;
+package Final.View;
 
-import ChatProgram.Controller.LoginController;
+import Final.Controller.LoginController;
+import Final.View.WindowOpenManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

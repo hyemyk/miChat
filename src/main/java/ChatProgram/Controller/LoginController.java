@@ -1,8 +1,9 @@
-package ChatProgram.controller;
+package ChatProgram.Controller;
 
 import ChatProgram.ChatRoomPkg.User;
 import ChatProgram.main.Client;
 import ChatProgram.main.WindowOpenManager;
+
 import ChatProgram.service.LoginService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,6 +39,7 @@ public class LoginController implements Initializable {
             windowOpenManager.mainOpen(loginUserInfo);
 
         }
+
     }
 
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
