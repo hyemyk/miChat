@@ -35,6 +35,7 @@ public class Client {
                         try {
 //                            displayText("[연결 완료: "+socketChannel.getRemoteAddress()+"]");
                             send(id);
+                            System.out.println("받아온 ID: " + id);
                             //btnConn.setText("stop");
                             //btnSend.setDisable(false);
                         }catch(Exception e) {

@@ -21,7 +21,7 @@ public class CreateRoomController implements Initializable {
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
     }
 
-    public void create(String userId) {
-        windowOpenManager.chatRoomOpen(userId);
-    }
+    public void create() {}
+
+    public void cancel() {}
 }
