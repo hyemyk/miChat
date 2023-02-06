@@ -56,7 +56,7 @@ public class WindowOpenManager {
 
     //메인 화면에서 채팅방 만들기 창 오픈
     public void createChatOpen() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createChat.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("createRoom.fxml"));
 
         try {
             System.out.println("createChat창 로더 : " + loader);

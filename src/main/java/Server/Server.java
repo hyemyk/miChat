@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 public class Server {
     private AsynchronousChannelGroup channelGroup;
     private AsynchronousServerSocketChannel socketChannel;
-    List<Client> connections = new Vector<Client>();
+    //List<Client> connections = new Vector<Client>();
 
     private static final Charset charset = Charset.forName("utf-8");
 
