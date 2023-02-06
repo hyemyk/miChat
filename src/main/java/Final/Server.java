@@ -94,15 +94,15 @@ public class Server extends Application{
 
     //데이터를 통신하는 객체
     class Client{
-        AsynchronousSocketChannel socketChannel;
+            AsynchronousSocketChannel socketChannel;
 
         public Client(AsynchronousSocketChannel socketChannel) {
-            this.socketChannel = socketChannel;
-            receive();
-        }
+                this.socketChannel = socketChannel;
+                receive();
+            }
 
-        //클라이언트로부터 데이터 받기
-        void receive() {
+            //클라이언트로부터 데이터 받기
+            void receive() {
             ByteBuffer byteBuffer = ByteBuffer.allocate(100);
             socketChannel.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>(){
 
@@ -115,6 +115,7 @@ public class Server extends Application{
                         attachment.flip();
                         Charset charset = Charset.forName("utf-8");
                         String data = charset.decode(attachment).toString();
+
 
                         for(Client  client : connections) {
                             client.send(data); //모든 클라이언트에게 보내기

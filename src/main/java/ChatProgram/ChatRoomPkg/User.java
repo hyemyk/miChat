@@ -36,21 +36,13 @@ public class User {
         this.id = id;
     }
 
-
-    public String getPw() {
-        return pw;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
-
     public ArrayList<ChatRoom> getRoomList() {
         return roomList;
     }
 
-    public void setRoomList(ArrayList<ChatRoom> roomList) {
-        this.roomList = roomList;
+    public void setRoomList(ArrayList<ChatRoom> myRoomList) {
+        this.roomList = myRoomList;
+        //myRoomList.add(createdRoom);
     }
 
     public AsynchronousSocketChannel getSocket() {
