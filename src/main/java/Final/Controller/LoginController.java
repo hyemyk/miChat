@@ -1,6 +1,6 @@
 package Final.Controller;
 
-import Final.Client;
+import Final.Client.Client;
 import Final.View.WindowOpenManager;
 
 import javafx.fxml.FXML;

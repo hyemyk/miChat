@@ -1,4 +1,4 @@
-package Final;
+package Final.Client;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -50,15 +50,16 @@ public class Client {
                            String msg = "[연결 완료: "+socketChannel.getRemoteAddress()+"]";
                             System.out.println(msg);
                             System.out.println("받아온 ID: " + id);
-                            send2(id);
+                            //send2(id);
 
 //
                             //JSON====================
-//                            JSONObject json = new JSONObject();
-//                            json.put("method", "id");
-//                            String data = json.toString();
-//                            //System.out.println(data);
-//                            send(data);
+                            JSONObject json = new JSONObject();
+                            json.put("method", "/room/create");
+                            json.put("title", "room3");
+                            String data = json.toString();
+                            //System.out.println(data);
+                            send2(data);
                             //JSON====================
 
                             //btnConn.setText("stop");
@@ -104,6 +105,15 @@ public class Client {
                     attachment.flip();
                     Charset charset = Charset.forName("utf-8");
                     String data = charset.decode(attachment).toString();
+                    //====================Json 시작
+                    JSONParser jsonParser = new JSONParser();
+                    JSONObject token = (JSONObject) jsonParser.parse(data);
+                    String method = token.get("method").toString();
+                    System.out.println(method);
+
+
+
+
                     Platform.runLater(()->displayText(data));
                     System.out.println(data);
 

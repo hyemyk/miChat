@@ -9,4 +9,8 @@ module main {
     opens Final.View to javafx.fxml;
     exports Final;
     opens Final to javafx.fxml;
+    exports Final.Server;
+    opens Final.Server to javafx.fxml;
+    exports Final.Client;
+    opens Final.Client to javafx.fxml;
 }

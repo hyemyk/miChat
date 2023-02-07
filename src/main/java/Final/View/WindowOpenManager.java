@@ -1,6 +1,6 @@
 package Final.View;
 
-import Final.Client;
+import Final.Client.Client;
 import Final.Controller.ChatRoomController;
 import Final.Controller.CreateRoomController;
 import Final.Controller.MainController;
