@@ -54,11 +54,11 @@ public class Client {
 
 //
                             //JSON====================
-                            JSONObject json = new JSONObject();
-                            json.put("method", "id");
-                            String data = json.toString();
-                            //System.out.println(data);
-                            send(data);
+//                            JSONObject json = new JSONObject();
+//                            json.put("method", "id");
+//                            String data = json.toString();
+//                            //System.out.println(data);
+//                            send(data);
                             //JSON====================
 
                             //btnConn.setText("stop");

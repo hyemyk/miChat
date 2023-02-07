@@ -118,15 +118,15 @@ public class Server extends Application{
                         Charset charset = Charset.forName("utf-8");
                         String data = charset.decode(attachment).toString();
                         //====================Json 시작
-                        JSONParser jsonParser = new JSONParser();
-                        JSONObject token = (JSONObject) jsonParser.parse(data);
-                        String method = token.get("method").toString();
-                        System.out.println(method);
-                        if(method.equals("id")){
-                            Platform.runLater(()->displayText("로그인 성공"));
-                        }
+//                        JSONParser jsonParser = new JSONParser();
+//                        JSONObject token = (JSONObject) jsonParser.parse(data);
+//                        String method = token.get("method").toString();
+//                        System.out.println(method);
+//                        if(method.equals("id")){
+//                            Platform.runLater(()->displayText("로그인 성공"));
+//                        }
                         //====================Json 끝
-
+                        System.out.println(data);
 
                         for(Client  client : connections) {
                             client.send(data); //모든 클라이언트에게 보내기
