@@ -137,6 +137,26 @@ public class Server extends Application{
                         System.out.println(method);
 
                         switch (method) {
+                            // # 로그인
+//                            case "/login/id":
+//                                if (room == null) {
+//                                    System.out.println("실행함1?");
+//                                    System.out.println(Client.this);
+//                                    System.out.println(token.get("title").toString());
+//
+//                                    roomManager.createRoom( token.get("title").toString(), Client.this);
+//                                    System.out.println("실행함?");
+//                                    Platform.runLater(()-> {
+//                                        try {
+//                                            displayText("[채팅서버] 채팅방 개설 " + socketChannel.getRemoteAddress());
+//                                        } catch (IOException e) {
+//                                            e.printStackTrace();
+//                                            throw new RuntimeException(e);
+//                                        }
+//                                    });
+//                                    Platform.runLater(()->displayText("[채팅서버] 현재 채팅방 갯수 " + roomManager.rooms.size()));
+//                                }
+//                                break;
                             // #방생성
                             case "/room/create":
                                 System.out.println("room : "+ room);

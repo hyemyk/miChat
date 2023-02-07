@@ -1,10 +1,18 @@
 package Final.Controller;
 
+import Final.Client.Client;
 import Final.View.WindowOpenManager;
+import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.ListView;
 
 public class MainController {
+    @FXML
+    private ListView listView;
+
     private WindowOpenManager windowOpenManager;
+
+    private Client client;
 
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
         this.windowOpenManager = windowOpenManager;
@@ -23,4 +31,9 @@ public class MainController {
     }
 
     public void refreshList() {}
+
+    public void setClient(Client client) {
+        this.client = client;
+        client.setListView(listView);
+    }
 }

@@ -15,11 +15,11 @@ public class Room {
             RoomManager roomManager,
             String id,
             int index,
-            String title ) {
+            String roomName ) {
         this.roomManager = roomManager;
         this.id = id;
         this.index = index;
-        this.title = title;
+        this.title = roomName;
         clients = new Vector<>();
     }
 

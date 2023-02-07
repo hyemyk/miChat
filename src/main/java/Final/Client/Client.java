@@ -8,18 +8,11 @@ import java.nio.channels.CompletionHandler;
 import java.nio.charset.Charset;
 import java.util.concurrent.Executors;
 
-import Final.Controller.ChatRoomController;
-import Final.View.WindowOpenManager;
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -28,7 +21,15 @@ public class Client {
     AsynchronousSocketChannel socketChannel;
 
     TextArea txtDisplay;
+    ListView listView;
 
+    Room room;
+    String id;
+
+    public void setListView(ListView listView) {
+        this.listView = listView;
+        System.out.println("listView : "+ listView);
+    }
     public void setTxtDisplay(TextArea txtDisplay) {
         this.txtDisplay = txtDisplay;
     }
@@ -36,8 +37,13 @@ public class Client {
         txtDisplay.appendText(text+"\n");
     }
 
+    void initText() {
+        txtDisplay.setText("");
+    }
+
     //연결 시작
     public void startClient(String id) {
+        this.id = id;
         try {
             channelGroup = AsynchronousChannelGroup.withFixedThreadPool(Runtime.getRuntime().availableProcessors(), Executors.defaultThreadFactory());
             socketChannel = AsynchronousSocketChannel.open(channelGroup);
@@ -45,26 +51,26 @@ public class Client {
 
                 @Override
                 public void completed(Void result, Void attachment) {
-                        try {
+                    try {
 
-                           String msg = "[연결 완료: "+socketChannel.getRemoteAddress()+"]";
-                            System.out.println(msg);
-                            System.out.println("받아온 ID: " + id);
-                            //send2(id);
+                        String msg = "[연결 완료: " + socketChannel.getRemoteAddress() + "]";
+                        System.out.println(msg);
+                        System.out.println("받아온 ID: " + id);
+                        //sendID(id);
 
 //
-                            //JSON====================
-                            JSONObject json = new JSONObject();
-                            json.put("method", "/room/create");
-                            json.put("title", "room3");
-                            String data = json.toString();
-                            //System.out.println(data);
-                            send2(data);
-                            //JSON====================
+                        //JSON====================
+                        JSONObject json = new JSONObject();
+                        json.put("method", "/login/id");
+                        json.put("userId", id);
+                        String data = json.toString();
+                        //System.out.println(data);
+                        sendId(data);
+                        //JSON====================
 
-                            //btnConn.setText("stop");
-                            //btnSend.setDisable(false);
-                        }catch(Exception e) {
+                        //btnConn.setText("stop");
+                        //btnSend.setDisable(false);
+                    } catch (Exception e) {
 
                         }
                     receive(); //서버에서 보낸 데이터 받기
@@ -110,12 +116,33 @@ public class Client {
                     JSONObject token = (JSONObject) jsonParser.parse(data);
                     String method = token.get("method").toString();
                     System.out.println(method);
-
-
-
-
                     Platform.runLater(()->displayText(data));
                     System.out.println(data);
+
+                    switch (method) {
+                        case "/room/status":
+                            Platform.runLater(()->{
+                                // init listView
+                                listView.getItems().clear();
+
+                                // append listView
+                                JSONArray rooms = (JSONArray) token.get("rooms");
+                                for (int i = 0; i < rooms.size(); i++) {
+                                    JSONObject room = (JSONObject) rooms.get(i);
+                                    System.out.println(room.toString());
+                                    listView.getItems().add(
+                                            new Room(
+                                                    room.get("id").toString(),
+                                                    room.get("roomName").toString(),
+                                                    0/*Integer.parseInt(room.get("size").toString())*/)
+                                    );
+                                }
+                            });
+                            break;
+                        case "/chat/echo":
+                            Platform.runLater(()->{ displayText("[채팅클라이언트] " + token.get("id") + " :: " + token.get("message") ); });
+                            break;
+                    }
 
                     ByteBuffer byteBuffer = ByteBuffer.allocate(100);
                     socketChannel.read(byteBuffer, byteBuffer,this); //데이터 다시 읽기
@@ -133,7 +160,7 @@ public class Client {
         });
     }
 
-    public void send2(String data) {
+    public void sendId(String data) {
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
@@ -150,15 +177,86 @@ public class Client {
         });
     }
 
-    //서버로 데이터 전송
-    public void send(String data) {
+    public void sendCreate( Room room ) {
+        Client.this.room = room;
+
+        String data = String.format("{\"method\":\"%s\",\"title\":\"%s\"}", "/room/create", room.roomName);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
         socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
             @Override
             public void completed(Integer result, Void attachment) {
-                Platform.runLater(()->displayText("[보내기 완료]"));
+            }
+
+            // ### print() ###
+            //printEntry(txtId.getText(), room.title);
+
+            @Override
+            public void failed(Throwable exc, Void attachment) {
+                stopClient();
+            }
+
+        });
+
+    }
+
+    public void sendEntry( Room room ) {
+        Client.this.room = room;
+
+        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/room/entry", room.id);
+        Charset charset = Charset.forName("utf-8");
+        ByteBuffer byteBuffer = charset.encode(data);
+
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+            @Override
+            public void completed(Integer result, Void attachment) {
+                // ### print() ###
+                printEntry(id, room.roomName);
+            }
+            @Override
+            public void failed(Throwable exc, Void attachment) {
+                stopClient();
+            }
+
+        });
+
+    }
+
+    public void sendLeave() {
+
+        String data = String.format("{\"method\":\"%s\"}", "/room/leave");
+        Charset charset = Charset.forName("utf-8");
+        ByteBuffer byteBuffer = charset.encode(data);
+
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+            @Override
+            public void completed(Integer result, Void attachment) {
+                // ### print() ###
+                printLeave();
+            }
+
+
+
+            @Override
+            public void failed(Throwable exc, Void attachment) {
+                stopClient();
+            }
+
+        });
+
+    }
+
+    //서버로 데이터 전송
+    public void sendChat(String message) {
+        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\"}", "/chat/send", id, message);
+        Charset charset = Charset.forName("utf-8");
+        ByteBuffer byteBuffer = charset.encode(data);
+
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+            @Override
+            public void completed(Integer result, Void attachment) {
+                Platform.runLater(()->displayText(id + "님"));
             }
 
             @Override
@@ -167,6 +265,22 @@ public class Client {
                 stopClient();
             }
 
+        });
+    }
+
+
+    void printEntry( String id, String roomName ) {
+        Platform.runLater(()->{
+            initText();
+            displayText("\"" + roomName + "\"에 오신 것을 환영합니다. " + id + "님" );
+            displayText("채팅방 이름 : " + roomName );
+        });
+    }
+
+    void printLeave() {
+        Platform.runLater(()->{
+            initText();
+            displayText("[채팅클라이언트] 채팅을 나갔습니다. 새로운 채팅방을 만들거나 찾아주세요." );
         });
     }
 

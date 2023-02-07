@@ -35,6 +35,7 @@ public class WindowOpenManager {
 
             MainController mainCon = loader.getController();
             mainCon.setMainForm(mainForm); //메인화면 fxml파일에 메인화면 컨트롤러 연결
+            mainCon.setClient(client);
 
             mainCon.setWindowOpenManager(this);//메인 화면 컨트롤러에 오프너 세팅
             this.setStage(stage);
