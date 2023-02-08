@@ -8,7 +8,7 @@ public class Room {
     public RoomManager roomManager;
     public String id;
     public int index;
-    public String title;
+    public String roomName;
     public List<Server.Client> clients;
 
     public Room(
@@ -19,7 +19,7 @@ public class Room {
         this.roomManager = roomManager;
         this.id = id;
         this.index = index;
-        this.title = roomName;
+        this.roomName = roomName;
         clients = new Vector<>();
     }
 

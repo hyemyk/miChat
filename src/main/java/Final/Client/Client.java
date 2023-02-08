@@ -56,17 +56,10 @@ public class Client {
                         String msg = "[연결 완료: " + socketChannel.getRemoteAddress() + "]";
                         System.out.println(msg);
                         System.out.println("받아온 ID: " + id);
-                        //sendID(id);
+                        sendId(id);
 
 //
-                        //JSON====================
-                        JSONObject json = new JSONObject();
-                        json.put("method", "/login/id");
-                        json.put("userId", id);
-                        String data = json.toString();
-                        //System.out.println(data);
-                        sendId(data);
-                        //JSON====================
+
 
                         //btnConn.setText("stop");
                         //btnSend.setDisable(false);
@@ -160,7 +153,9 @@ public class Client {
         });
     }
 
-    public void sendId(String data) {
+    public void sendId(String id) {
+
+        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/login/id", id);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
@@ -180,7 +175,7 @@ public class Client {
     public void sendCreate( Room room ) {
         Client.this.room = room;
 
-        String data = String.format("{\"method\":\"%s\",\"title\":\"%s\"}", "/room/create", room.roomName);
+        String data = String.format("{\"method\":\"%s\",\"roomName\":\"%s\"}", "/room/create", room.roomName);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 

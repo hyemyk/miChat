@@ -30,7 +30,9 @@ public class MainController {
 
     }
 
-    public void refreshList() {}
+    public void refreshList() {
+        client.send
+    }
 
     public void setClient(Client client) {
         this.client = client;

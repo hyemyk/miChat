@@ -27,7 +27,7 @@ public class RoomManager {
         roomStatus = "[";
         if(rooms.size() > 0) {
             for (Room room : rooms) {
-                roomStatus += String.format("{\"id\":\"%s\",\"title\":\"%s\"},", room.id, room.title);
+                roomStatus += String.format("{\"id\":\"%s\",\"roomName\":\"%s\"},", room.id, room.roomName);
             }
             roomStatus = roomStatus.substring(0,roomStatus.length()-1);
         }
