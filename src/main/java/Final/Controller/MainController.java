@@ -31,7 +31,7 @@ public class MainController {
     }
 
     public void refreshList() {
-        client.send
+        client.sendRoomList();
     }
 
     public void setClient(Client client) {

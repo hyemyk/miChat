@@ -155,6 +155,7 @@ public class Server extends Application{
                                     Platform.runLater(()->displayText("[채팅서버] 현재 로그인 된 유저수 " + connections.size()));
                                 }
                                 break;
+                                
                             // #방생성
                             case "/room/create":
                                 System.out.println("room : "+ room);
@@ -175,6 +176,13 @@ public class Server extends Application{
                                     });
                                     Platform.runLater(()->displayText("[채팅서버] 현재 채팅방 갯수 " + roomManager.rooms.size()));
                                 }
+                                break;
+                            // #방 리스트 생성
+                            case "/room/roomList":
+                                for(Client  client : connections) {
+                                    client.sendRoomList(); //모든 클라이언트에게 보내기
+                                }
+                             
                                 break;
                             // #방입장
                             case "/room/entry":
@@ -230,8 +238,8 @@ public class Server extends Application{
                         for(Client  client : connections) {
                             client.send(data); //모든 클라이언트에게 보내기
                         }
-
                         ByteBuffer byteBuffer = ByteBuffer.allocate(100);
+
                         socketChannel.read(byteBuffer, byteBuffer, this); //데이터 다시 읽기
                     }catch(Exception e) {
                         e.printStackTrace();
@@ -290,7 +298,7 @@ public class Server extends Application{
          * @DES :: entry & leave 의 상태에 따라 계속적으로 클라이언트에게 인원수 전송
          * @S.E :: "method" /room/status
          */
-        public void sendStatus() {
+        public void sendRoomList() {
             String packet = String.format("{\"method\":\"%s\",\"rooms\":%s}", "/room/status", roomManager.roomStatus);
             Charset charset = Charset.forName("utf-8");
             ByteBuffer byteBuffer = charset.encode(packet);

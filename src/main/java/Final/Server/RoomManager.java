@@ -55,7 +55,7 @@ public class RoomManager {
         System.out.println("createRoom실행함-2?");
         // #전달 - 모든 Client에게 상황보고
         updateRoomStatus();
-        for (int i = 0; i < clients.size(); i++) { clients.get(i).sendStatus(); }
+        for (int i = 0; i < clients.size(); i++) { clients.get(i).sendRoomList(); }
         System.out.println("createRoom실행함-3?");
         // #입장
         newRoom.entryRoom(client);
@@ -73,7 +73,7 @@ public class RoomManager {
 
         // #전달 - 모든 Client에게 상황보고
         updateRoomStatus();
-        for (int i = 0; i < clients.size(); i++) { clients.get(i).sendStatus(); }
+        for (int i = 0; i < clients.size(); i++) { clients.get(i).sendRoomList(); }
     }
 
 }
