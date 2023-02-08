@@ -26,7 +26,7 @@ public class ChatRoomController implements Initializable {
     }
 
     public void send() {
-        client.send(txtInput.getText());
+        client.sendChat(txtInput.getText());
 
     }
 

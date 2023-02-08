@@ -187,10 +187,11 @@ public class Client {
         socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
             @Override
             public void completed(Integer result, Void attachment) {
+                // ### print() ###
+                printEntry(id, room.roomName);
             }
 
-            // ### print() ###
-            //printEntry(txtId.getText(), room.title);
+
 
             @Override
             public void failed(Throwable exc, Void attachment) {
