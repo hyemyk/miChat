@@ -21,12 +21,12 @@ public class Client {
     AsynchronousSocketChannel socketChannel;
 
     TextArea txtDisplay;
-    ListView listView;
+    ListView<Room> listView;
 
     Room room;
     String id;
 
-    public void setListView(ListView listView) {
+    public void setListView(ListView<Room> listView) {
         this.listView = listView;
         System.out.println("listView : "+ listView);
     }
@@ -154,7 +154,7 @@ public class Client {
     }
 
 
-    public void sendRoomList() {
+    public void requestRoomList() {
 
         String data = String.format("{\"method\":\"%s\"}", "/room/roomList");
         Charset charset = Charset.forName("utf-8");

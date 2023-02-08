@@ -1,19 +1,41 @@
 package Final.Controller;
 
 import Final.Client.Client;
+import Final.Client.Room;
 import Final.View.WindowOpenManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 
-public class MainController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainController implements Initializable {
     @FXML
-    private ListView listView;
+    private ListView<Room> listView;
 
     private WindowOpenManager windowOpenManager;
 
     private Client client;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // client.requestRoomList();
+        // listView.setItems(FXCollections.observableArrayList());
+        listView.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Room>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
+                        // System.out.println(newValue.id);
+                        if(newValue != null) client.sendEntry( newValue );
+                    }
+                }
+        );
+
+    }
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
         this.windowOpenManager = windowOpenManager;
     }
@@ -31,7 +53,8 @@ public class MainController {
     }
 
     public void refreshList() {
-        client.sendRoomList();
+        client.requestRoomList();
+
 
     }
 
@@ -39,4 +62,8 @@ public class MainController {
         this.client = client;
         client.setListView(listView);
     }
+
+
+
+
 }

@@ -179,7 +179,7 @@ public class Server extends Application{
                                 break;
                             // #방 리스트 생성
                             case "/room/roomList":
-                                for(Client  client : connections) {
+                                for(Client client : connections) {
                                     client.sendRoomList(); //모든 클라이언트에게 보내기
                                 }
                              
@@ -306,14 +306,14 @@ public class Server extends Application{
          * @S.E :: "method" /room/status
          */
         public void sendRoomList() {
-            String packet = String.format("{\"method\":\"%s\",\"rooms\":%s}", "/room/status", roomManager.roomStatus);
+            String packet = String.format("{\"method\":\"%s\",\"rooms\":%s}", "/room/roomList", roomManager.roomStatus);
             Charset charset = Charset.forName("utf-8");
             ByteBuffer byteBuffer = charset.encode(packet);
             socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
 
                 @Override
                 public void completed(Integer result, Void attachment) {
-                    String message = "\"[채팅서버] 송신 /room/status\"]";
+                    String message = "\"[채팅서버] 송신 /room/roomList\"]";
                     Platform.runLater(()->displayText(message));
 
                 }
