@@ -214,7 +214,7 @@ public class Client {
 
     }
 
-    public void sendEntry( Room room ) {
+    public void sendEntry(Room room) {
         Client.this.room = room;
 
         String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/room/entry", room.id);
