@@ -46,7 +46,7 @@ public class CreateRoomController implements Initializable {
         windowOpenManager.chatRoomOpen();
     }
 
-    public void cancel() {
+    public void cancel()  {
         UICommonService.windowClose(createRoomForm);
     }
 }

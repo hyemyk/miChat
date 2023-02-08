@@ -113,7 +113,7 @@ public class Client {
                     System.out.println(data);
 
                     switch (method) {
-                        case "/room/roomList":
+                        case "/room/status":
                             Platform.runLater(()->{
                                 // init listView
                                 listView.getItems().clear();
@@ -153,25 +153,6 @@ public class Client {
         });
     }
 
-
-    public void sendRoomList() {
-
-        String data = String.format("{\"method\":\"%s\"}", "/room/roomList");
-        Charset charset = Charset.forName("utf-8");
-        ByteBuffer byteBuffer = charset.encode(data);
-
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
-            @Override
-            public void completed(Integer result, Void attachment) {
-            }
-
-            @Override
-            public void failed(Throwable exc, Void attachment) {
-                stopClient();
-            }
-
-        });
-    }
     public void sendId(String id) {
 
         String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/login/id", id);
