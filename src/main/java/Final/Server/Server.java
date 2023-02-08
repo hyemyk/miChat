@@ -164,7 +164,7 @@ public class Server extends Application{
                                     System.out.println(Client.this);
                                     System.out.println(token.get("roomName").toString());
 
-                                    roomManager.createRoom( token.get("title").toString(), Client.this);
+                                    roomManager.createRoom( token.get("roomName").toString(), Client.this);
                                     System.out.println("실행함?");
                                     Platform.runLater(()-> {
                                         try {

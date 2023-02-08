@@ -191,10 +191,9 @@ public class Client {
         });
     }
 
-    public void sendCreate( Room room ) {
-        Client.this.room = room;
+    public void sendCreate(String roomName) {
 
-        String data = String.format("{\"method\":\"%s\",\"roomName\":\"%s\"}", "/room/create", room.roomName);
+        String data = String.format("{\"method\":\"%s\",\"roomName\":\"%s\"}", "/room/create", roomName);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
@@ -202,9 +201,8 @@ public class Client {
             @Override
             public void completed(Integer result, Void attachment) {
                 // ### print() ###
-                printEntry(id, room.roomName);
+                printEntry(id, roomName);
             }
-
 
 
             @Override

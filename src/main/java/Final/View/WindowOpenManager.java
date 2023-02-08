@@ -67,6 +67,7 @@ public class WindowOpenManager {
 
             CreateRoomController createRoomCon = loader.getController();
             createRoomCon.setCreateRoomForm(createRoomForm);
+            createRoomCon.setClientInfo(client, userId);
 
 
             createRoomCon.setWindowOpenManager(this);
