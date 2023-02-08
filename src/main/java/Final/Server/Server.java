@@ -118,7 +118,7 @@ public class Server extends Application{
 
             //클라이언트로부터 데이터 받기
             void receive() {
-            ByteBuffer byteBuffer = ByteBuffer.allocate(100);
+            ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
             socketChannel.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>(){
 
                 @Override
@@ -218,8 +218,15 @@ public class Server extends Application{
                             // #쳇전송
                             case "/chat/send":
                                 if (room != null) {
-                                    for (Client c : room.clients) {
-                                        if (c != Client.this) c.sendEcho(token.get("id").toString(), token.get("message").toString());
+                                    System.out.println("room : " + room);
+                                    System.out.println("room.clients : "+ room.clients);
+                                    System.out.println("connections : " + connections);
+//                                    for (Client c : room.clients) {
+//                                        if (c != Client.this) c.sendEcho(token.get("id").toString(), token.get("message").toString());
+//                                    }
+                                    System.out.println(token.get("id").toString());
+                                    for(Client  client : room.clients) {
+                                        client.sendEcho(token.get("id").toString(), token.get("message").toString());
                                     }
                                 }
                                 break;
@@ -236,9 +243,9 @@ public class Server extends Application{
                         System.out.println(data);
 
                         for(Client  client : connections) {
-                            client.send(data); //모든 클라이언트에게 보내기
+                           // client.send(data); //모든 클라이언트에게 보내기
                         }
-                        ByteBuffer byteBuffer = ByteBuffer.allocate(100);
+                        ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
 
                         socketChannel.read(byteBuffer, byteBuffer, this); //데이터 다시 읽기
                     }catch(Exception e) {

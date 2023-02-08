@@ -95,7 +95,7 @@ public class Client {
 
     //서버로부터 데이터 받기
    public void receive() {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(100);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
         socketChannel.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>(){
 
             @Override
@@ -110,10 +110,10 @@ public class Client {
                     String method = token.get("method").toString();
                     System.out.println(method);
                     Platform.runLater(()->displayText(data));
-                    System.out.println(data);
+                    System.out.println("data : " + data);
 
                     switch (method) {
-                        case "/room/status":
+                        case "/room/roomList":
                             Platform.runLater(()->{
                                 // init listView
                                 listView.getItems().clear();
@@ -137,10 +137,10 @@ public class Client {
                             break;
                     }
 
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(100);
+                    ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
                     socketChannel.read(byteBuffer, byteBuffer,this); //데이터 다시 읽기
                 }catch(Exception e) {
-
+                    e.printStackTrace();
                 }
             }
 
@@ -153,6 +153,25 @@ public class Client {
         });
     }
 
+
+    public void sendRoomList() {
+
+        String data = String.format("{\"method\":\"%s\"}", "/room/roomList");
+        Charset charset = Charset.forName("utf-8");
+        ByteBuffer byteBuffer = charset.encode(data);
+
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+            @Override
+            public void completed(Integer result, Void attachment) {
+            }
+
+            @Override
+            public void failed(Throwable exc, Void attachment) {
+                stopClient();
+            }
+
+        });
+    }
     public void sendId(String id) {
 
         String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/login/id", id);
