@@ -143,7 +143,7 @@ public class Client {
                             System.out.println("받은 채팅데이터 : " + data);
                             if (joinChats.containsKey(token.get("roomName").toString())) {
                                 Platform.runLater(()->{
-                                    displayText("[채팅클라이언트] " + token.get("id") + " :: " + token.get("message"), joinChats.get(token.get("roomName").toString()) );
+                                    displayText( token.get("id") + "님 :: " + token.get("message"), joinChats.get(token.get("roomName").toString()) );
                                 });
 
                             }
@@ -250,9 +250,9 @@ public class Client {
 
     }
 
-    public void sendLeave() {
+    public void sendLeave(Room room) {
 
-        String data = String.format("{\"method\":\"%s\"}", "/room/leave");
+        String data = String.format("{\"method\":\"%s\", \"roomName\":\"%s\"}", "/room/leave", room.roomName);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
@@ -282,9 +282,7 @@ public class Client {
 
         socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
             @Override
-            public void completed(Integer result, Void attachment) {
-                Platform.runLater(()->displayText(id + "님"));
-            }
+            public void completed(Integer result, Void attachment) {}
 
             @Override
             public void failed(Throwable exc, Void attachment) {

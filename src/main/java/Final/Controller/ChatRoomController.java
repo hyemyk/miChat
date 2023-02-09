@@ -44,6 +44,7 @@ public class ChatRoomController implements Initializable {
     }
 
     public void stopClient() {
+        client.sendLeave(thisRoom);
 
     }
 
@@ -58,7 +59,5 @@ public class ChatRoomController implements Initializable {
         showName.setText(thisRoom.roomName);
         showNo.setText(String.valueOf(thisRoom.size));
     }
-//    public void setShowName() {
-//
-//    }
+
 }

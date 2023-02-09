@@ -198,14 +198,18 @@ public class Server extends Application{
                                 break;
                             // #방 나가기
                             case "/room/leave":
-                                    //Client.this.room.leaveRoom(Client.this);
-                                    Platform.runLater(()-> {
-                                        try {
-                                            displayText("[채팅서버] 채팅방 나감" + socketChannel.getRemoteAddress());
-                                        } catch (IOException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    });
+                                for (int i = 0; i < roomManager.rooms.size(); i++) {
+                                    if (roomManager.rooms.get(i).roomName.equals(token.get("roomName").toString())) {
+                                        roomManager.rooms.get(i).leaveRoom(Client.this);
+                                        Platform.runLater(() -> {
+                                            try {
+                                                displayText("[채팅서버] 채팅방 퇴장" + socketChannel.getRemoteAddress());
+                                            } catch (IOException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        });
+                                    }
+                                }
                                 break;
                             // #쳇전송
                             case "/chat/send":
