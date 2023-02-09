@@ -109,7 +109,7 @@ public class Client {
                     JSONObject token = (JSONObject) jsonParser.parse(data);
                     String method = token.get("method").toString();
                     System.out.println(method);
-                    Platform.runLater(()->displayText(data));
+                    // Platform.runLater(()->displayText(data));
                     System.out.println("data : " + data);
 
                     switch (method) {
@@ -262,7 +262,7 @@ public class Client {
 
     //서버로 데이터 전송
     public void sendChat(String message) {
-        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\"}", "/chat/send", id, message);
+        String data = String.format("{\"method\":\"%s\",\"thisRoomName\":\"%s\",\"id\":\"%s\",\"message\":\"%s\"}", "/chat/send", room.roomName, id, message);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 

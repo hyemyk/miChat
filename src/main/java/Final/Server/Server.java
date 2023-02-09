@@ -7,6 +7,7 @@ import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.Executors;
@@ -106,15 +107,18 @@ public class Server extends Application{
         public List<Client> connections;
         public RoomManager roomManager;
         public Room room;
+        public List<Room> userRooms;
         AsynchronousSocketChannel socketChannel;
 
-        public Client(AsynchronousSocketChannel socketChannel, String id,List<Client> connections, RoomManager roomManager) {
+        public Client(AsynchronousSocketChannel socketChannel, String id, List<Client> connections, RoomManager roomManager) {
                 this.socketChannel = socketChannel;
                 this.connections = connections;
                 this.roomManager = roomManager;
                 this.room = null;
-                receive();
-            }
+                userRooms = new Vector<Room>();
+
+            receive();
+        }
 
             //클라이언트로부터 데이터 받기
             void receive() {
@@ -139,7 +143,6 @@ public class Server extends Application{
                         switch (method) {
                             // #로그인
                             case "/login/id":
-                                if (room == null) {
                                     System.out.println(Client.this);
                                     System.out.println(token.get("id").toString());
 
@@ -153,18 +156,17 @@ public class Server extends Application{
                                         }
                                     });
                                     Platform.runLater(()->displayText("[채팅서버] 현재 로그인 된 유저수 " + connections.size()));
-                                }
                                 break;
                                 
                             // #방생성
                             case "/room/create":
                                 System.out.println("room : "+ room);
-                                if (room == null) {
                                     System.out.println("실행함1?");
                                     System.out.println(Client.this);
                                     System.out.println(token.get("roomName").toString());
 
-                                    roomManager.createRoom( token.get("roomName").toString(), Client.this);
+                                    roomManager.createRoom(token.get("roomName").toString(), Client.this);
+                                    userRooms.add(room);
                                     System.out.println("실행함?");
                                     Platform.runLater(()-> {
                                         try {
@@ -175,18 +177,15 @@ public class Server extends Application{
                                         }
                                     });
                                     Platform.runLater(()->displayText("[채팅서버] 현재 채팅방 갯수 " + roomManager.rooms.size()));
-                                }
                                 break;
-                            // #방 리스트 생성
+                            // #방 리스트 띄워주기
                             case "/room/roomList":
-                                for(Client client : connections) {
-                                    client.sendRoomList(); //모든 클라이언트에게 보내기
-                                }
-                             
+                                //for(Client client : connections) {
+                                    sendRoomList(); //모든 클라이언트에게 보내기 --> 로그인한 클라이언트한테만 보내기
+                                //}
                                 break;
                             // #방입장
                             case "/room/entry":
-                                if (room == null) {
                                     for (int i = 0; i < roomManager.rooms.size(); i++) {
                                         if (roomManager.rooms.get(i).id.equals(token.get("id").toString())) {
                                             roomManager.rooms.get(i).entryRoom(Client.this);
@@ -200,11 +199,9 @@ public class Server extends Application{
                                             break;
                                         }
                                     }
-                                }
                                 break;
-                            // #방탈출
+                            // #방 나가기
                             case "/room/leave":
-                                if (room != null) {
                                     Client.this.room.leaveRoom(Client.this);
                                     Platform.runLater(()-> {
                                         try {
@@ -213,22 +210,19 @@ public class Server extends Application{
                                             throw new RuntimeException(e);
                                         }
                                     });
-                                }
                                 break;
                             // #쳇전송
                             case "/chat/send":
-                                if (room != null) {
-                                    System.out.println("room : " + room);
-                                    System.out.println("room.clients : "+ room.clients);
-                                    System.out.println("connections : " + connections);
+                                    //System.out.println("room : " + room);
+                                    //System.out.println("room.clients : "+ room.clients);
+                                    //System.out.println("connections : " + connections);
 //                                    for (Client c : room.clients) {
 //                                        if (c != Client.this) c.sendEcho(token.get("id").toString(), token.get("message").toString());
 //                                    }
                                     System.out.println(token.get("id").toString());
-                                    for(Client  client : room.clients) {
+                                    for(Client client : room.clients) {
                                         client.sendEcho(token.get("id").toString(), token.get("message").toString());
                                     }
-                                }
                                 break;
                             default:
                                 Platform.runLater(()-> {

@@ -5,10 +5,12 @@ import Final.Client.Room;
 import Final.View.WindowOpenManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,12 +32,16 @@ public class MainController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
                         // System.out.println(newValue.id);
-                        if(newValue != null) client.sendEntry( newValue );
+                        if(newValue != null){
+                            client.sendEntry( newValue );
+
+                        }
                     }
                 }
         );
 
     }
+
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
         this.windowOpenManager = windowOpenManager;
     }

@@ -23,7 +23,7 @@
       <HBox prefHeight="359.0" prefWidth="430.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" />
-            <ListView fx:id="listView" prefHeight="359.0" prefWidth="245.0" />
+            <ListView fx:id="listView" />
             <VBox prefHeight="200.0" prefWidth="100.0" />
          </children>
       </HBox>
