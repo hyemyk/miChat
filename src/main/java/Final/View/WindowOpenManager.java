@@ -99,8 +99,9 @@ public class WindowOpenManager {
 
             ChatRoomController con = loader.getController();
             con.setChatRoomForm(ChatRoomForm);
-            con.setClient(client);
             con.setThisRoom(thisRoom);
+            con.setClient(client);
+
 
 
             //룸 이름, 참가 인원 띄우기 위한 메소드에 룸정보 보내기
@@ -130,8 +131,8 @@ public class WindowOpenManager {
 
             ChatRoomController con = loader.getController();
             con.setChatRoomForm(ChatRoomForm);
-            con.setClient(client);
             con.setThisRoom(createdRoom);
+            con.setClient(client);
 
 
             //룸 이름, 참가 인원 띄우기 위한 메소드에 룸정보 보내기

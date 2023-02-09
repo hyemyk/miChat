@@ -6,6 +6,7 @@ import java.nio.channels.AsynchronousChannelGroup;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.concurrent.Executors;
 
 import javafx.application.Platform;
@@ -21,6 +22,7 @@ public class Client {
     AsynchronousSocketChannel socketChannel;
 
     TextArea txtDisplay;
+    HashMap<String, TextArea> joinChats = new HashMap<>();
     ListView<Room> listView;
 
    // Room room;
@@ -30,11 +32,16 @@ public class Client {
         this.listView = listView;
         System.out.println("listView : "+ listView);
     }
-    public void setTxtDisplay(TextArea txtDisplay) {
+    public void setTxtDisplay(TextArea txtDisplay, String roomName) {
+        joinChats.put(roomName, txtDisplay);
         this.txtDisplay = txtDisplay;
     }
     void displayText(String text) {
         txtDisplay.appendText(text+"\n");
+    }
+
+    void displayText(String text, TextArea textArea) {
+        textArea.appendText(text+"\n");
     }
 
     void initText() {
@@ -133,7 +140,13 @@ public class Client {
                             });
                             break;
                         case "/chat/echo":
-                            Platform.runLater(()->{ displayText("[채팅클라이언트] " + token.get("id") + " :: " + token.get("message") ); });
+                            System.out.println("받은 채팅데이터 : " + data);
+                            if (joinChats.containsKey(token.get("roomName").toString())) {
+                                Platform.runLater(()->{
+                                    displayText("[채팅클라이언트] " + token.get("id") + " :: " + token.get("message"), joinChats.get(token.get("roomName").toString()) );
+                                });
+
+                            }
                             break;
                     }
 
@@ -263,7 +276,7 @@ public class Client {
 
     //서버로 데이터 전송
     public void sendChat(String message, Room room) {
-        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\"}", "/chat/send", id, message);
+        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\",\"roomName\":\"%s\"}","/chat/send", id, message, room.roomName);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 

@@ -49,7 +49,7 @@ public class ChatRoomController implements Initializable {
 
     public void setClient(Client client) {
         this.client = client;
-        client.setTxtDisplay(txtDisplay);
+        client.setTxtDisplay(txtDisplay, thisRoom.roomName);
     }
 
     public void setThisRoom(Room thisRoom) {
@@ -58,7 +58,7 @@ public class ChatRoomController implements Initializable {
         showName.setText(thisRoom.roomName);
         showNo.setText(String.valueOf(thisRoom.size));
     }
-    public void setShowName() {
-
-    }
+//    public void setShowName() {
+//
+//    }
 }

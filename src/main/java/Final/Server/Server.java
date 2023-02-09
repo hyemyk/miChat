@@ -183,7 +183,7 @@ public class Server extends Application{
                             // #방입장
                             case "/room/entry":
                                     for (int i = 0; i < roomManager.rooms.size(); i++) {
-                                        if (roomManager.rooms.get(i).id.equals(token.get("id").toString())) {
+                                        if (roomManager.rooms.get(i).roomName.equals(token.get("roomName").toString())) {
                                             roomManager.rooms.get(i).entryRoom(Client.this);
                                             Platform.runLater(()-> {
                                                 try {
@@ -215,10 +215,15 @@ public class Server extends Application{
 //                                    for (Client c : room.clients) {
 //                                        if (c != Client.this) c.sendEcho(token.get("id").toString(), token.get("message").toString());
 //                                    }
-                                    System.out.println(token.get("id").toString());
-//                                    for(Client client : room.clients) {
-//                                        client.sendEcho(token.get("id").toString(), token.get("message").toString());
-//                                    }
+                                for (int i = 0; i < roomManager.rooms.size(); i++) {
+                                    if (roomManager.rooms.get(i).roomName.equals(token.get("roomName").toString())) {
+                                        Room room = roomManager.rooms.get(i);
+                                        for (Client c : room.clients) {
+                                            c.sendEcho(token.get("id").toString(), token.get("message").toString(), room.roomName);
+                                        }
+                                    }
+                                }
+
                                 break;
                             default:
                                 Platform.runLater(()-> {
@@ -323,8 +328,8 @@ public class Server extends Application{
             });
         }
 
-        private void sendEcho(String id, String message) {
-            String packet = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\"}", "/chat/echo", id, message);
+        private void sendEcho(String id, String message, String roomName) {
+            String packet = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\",\"roomName\":\"%s\"}","/chat/echo", id, message, roomName);
             Charset charset = Charset.forName("utf-8");
             ByteBuffer byteBuffer = charset.encode(packet);
             socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){

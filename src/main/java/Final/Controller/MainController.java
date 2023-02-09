@@ -31,7 +31,7 @@ public class MainController implements Initializable {
                 new ChangeListener<Room>() {
                     @Override
                     public void changed(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
-                        System.out.println("newValue.roomName : " + newValue.roomName);
+                        //System.out.println("newValue.roomName : " + newValue.roomName);
                         if(newValue != null){
                             client.sendEntry(newValue);
                             windowOpenManager.chatRoomOpen(newValue);
