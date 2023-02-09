@@ -34,12 +34,11 @@ public class MainController implements Initializable {
                         // System.out.println(newValue.id);
                         if(newValue != null){
                             client.sendEntry( newValue );
-
+                            //windowOpenManager.chatRoomOpen();
                         }
                     }
                 }
         );
-
     }
 
     public void setWindowOpenManager(WindowOpenManager windowOpenManager) {
