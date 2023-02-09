@@ -43,7 +43,8 @@ public class CreateRoomController implements Initializable {
     public void create() {
         String roomName = rName.getText();
         client.sendCreate(roomName);
-        windowOpenManager.chatRoomOpen();
+        windowOpenManager.chatRoomOpen(new Room(roomName, 1));
+        UICommonService.windowClose(createRoomForm);
     }
 
     public void cancel()  {

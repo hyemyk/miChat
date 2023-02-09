@@ -24,10 +24,12 @@ public class RoomManager {
      * */
     void updateRoomStatus() {
         // System.out.println("updateRoomStatus call");
+
         roomStatus = "[";
         if(rooms.size() > 0) {
             for (Room room : rooms) {
-                roomStatus += String.format("{\"id\":\"%s\",\"roomName\":\"%s\"},", room.id, room.roomName);
+                roomStatus += String.format("{\"id\":\"%s\", \"roomName\":\"%s\",\"roomSize\":\"%s\"},", room.id, room.roomName, room.clients.size());
+                System.out.println("room.clients.size() : " + room.clients.size());
             }
             roomStatus = roomStatus.substring(0,roomStatus.length()-1);
         }
@@ -43,7 +45,7 @@ public class RoomManager {
      * @IP1 :: client {Client}
      * @S.E :: 모든 Client의 상태를 업데이트
      * */
-    public void createRoom(String roomName, Server.Client client) {
+    public Room createRoom(String roomName, Server.Client client) {
         System.out.println("roomName : " + roomName);
         System.out.println("client : " + client);
         System.out.println("createRoom실행함-1?");
@@ -59,6 +61,7 @@ public class RoomManager {
         System.out.println("createRoom실행함-3?");
         // #입장
         newRoom.entryRoom(client);
+        return newRoom;
     }
 
     /**

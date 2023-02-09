@@ -23,7 +23,7 @@ public class Client {
     TextArea txtDisplay;
     ListView<Room> listView;
 
-    Room room;
+   // Room room;
     String id;
 
     public void setListView(ListView<Room> listView) {
@@ -125,9 +125,9 @@ public class Client {
                                     System.out.println("room.toString() : " + room.toString());
                                     listView.getItems().add(
                                             new Room(
-                                                    room.get("id").toString(),
+                                                    //room.get("id").toString(),
                                                     room.get("roomName").toString(),
-                                                    0/*Integer.parseInt(room.get("size").toString())*/)
+                                                    Integer.parseInt(room.get("roomSize").toString()))
                                     );
                                 }
                             });
@@ -215,9 +215,10 @@ public class Client {
     }
 
     public void sendEntry(Room room) {
-        Client.this.room = room;
+        //Client.this.room = room;
 
-        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/room/entry", room.id);
+        //String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/room/entry", room.id);
+        String data = String.format("{\"method\":\"%s\",\"roomName\":\"%s\"}", "/room/entry", room.roomName);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
@@ -261,7 +262,7 @@ public class Client {
     }
 
     //서버로 데이터 전송
-    public void sendChat(String message) {
+    public void sendChat(String message, Room room) {
         String data = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\"}", "/chat/send", id, message);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);

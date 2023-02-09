@@ -106,7 +106,7 @@ public class Server extends Application{
 
         public List<Client> connections;
         public RoomManager roomManager;
-        public Room room;
+        // public Room room;
         public List<Room> userRooms;
         AsynchronousSocketChannel socketChannel;
 
@@ -114,7 +114,7 @@ public class Server extends Application{
                 this.socketChannel = socketChannel;
                 this.connections = connections;
                 this.roomManager = roomManager;
-                this.room = null;
+                //this.room = null;
                 userRooms = new Vector<Room>();
 
             receive();
@@ -160,13 +160,9 @@ public class Server extends Application{
                                 
                             // #방생성
                             case "/room/create":
-                                System.out.println("room : "+ room);
-                                    System.out.println("실행함1?");
                                     System.out.println(Client.this);
                                     System.out.println(token.get("roomName").toString());
-
-                                    roomManager.createRoom(token.get("roomName").toString(), Client.this);
-                                    userRooms.add(room);
+                                    userRooms.add(roomManager.createRoom(token.get("roomName").toString(), Client.this));
                                     System.out.println("실행함?");
                                     Platform.runLater(()-> {
                                         try {
@@ -202,7 +198,7 @@ public class Server extends Application{
                                 break;
                             // #방 나가기
                             case "/room/leave":
-                                    Client.this.room.leaveRoom(Client.this);
+                                    //Client.this.room.leaveRoom(Client.this);
                                     Platform.runLater(()-> {
                                         try {
                                             displayText("[채팅서버] 채팅방 나감" + socketChannel.getRemoteAddress());
@@ -220,9 +216,9 @@ public class Server extends Application{
 //                                        if (c != Client.this) c.sendEcho(token.get("id").toString(), token.get("message").toString());
 //                                    }
                                     System.out.println(token.get("id").toString());
-                                    for(Client client : room.clients) {
-                                        client.sendEcho(token.get("id").toString(), token.get("message").toString());
-                                    }
+//                                    for(Client client : room.clients) {
+//                                        client.sendEcho(token.get("id").toString(), token.get("message").toString());
+//                                    }
                                 break;
                             default:
                                 Platform.runLater(()-> {
@@ -237,7 +233,7 @@ public class Server extends Application{
                         System.out.println(data);
 
                         for(Client  client : connections) {
-                           // client.send(data); //모든 클라이언트에게 보내기
+                            // client.send(data); //모든 클라이언트에게 보내기
                         }
                         ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
 

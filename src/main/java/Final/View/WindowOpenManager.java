@@ -1,6 +1,7 @@
 package Final.View;
 
 import Final.Client.Client;
+import Final.Client.Room;
 import Final.Controller.ChatRoomController;
 import Final.Controller.CreateRoomController;
 import Final.Controller.MainController;
@@ -89,7 +90,40 @@ public class WindowOpenManager {
         }
     }
 
-    public void chatRoomOpen() {
+    public void chatRoomOpen(Room thisRoom) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("chatRoom.fxml"));
+        try {
+            System.out.println("thisRoom.roomName : " + thisRoom.roomName);
+
+            Parent ChatRoomForm = loader.load();
+
+            ChatRoomController con = loader.getController();
+            con.setChatRoomForm(ChatRoomForm);
+            con.setClient(client);
+            con.setThisRoom(thisRoom);
+
+
+            //룸 이름, 참가 인원 띄우기 위한 메소드에 룸정보 보내기
+            // con.setChatRoomForm(createdRoom);
+
+            //소켓 담은 loginUserInfo 보내주기
+            //con.setSocket(loginUserInfo);
+
+            //우선 보류
+            //con.setChatRoomInfo(createdRoom);
+
+            Stage room = new Stage();
+            Scene scene = new Scene(ChatRoomForm);
+            room.setTitle("채팅방 화면");
+            room.setScene(scene);
+            room.show();
+        } catch (Exception e) {
+            UICommonService.msg(" 관리자에게 문의하세요.");
+            e.printStackTrace();
+        }
+    }
+
+    public void createdChatOpen(Room createdRoom) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("chatRoom.fxml"));
         try {
             Parent ChatRoomForm = loader.load();
@@ -97,6 +131,7 @@ public class WindowOpenManager {
             ChatRoomController con = loader.getController();
             con.setChatRoomForm(ChatRoomForm);
             con.setClient(client);
+            con.setThisRoom(createdRoom);
 
 
             //룸 이름, 참가 인원 띄우기 위한 메소드에 룸정보 보내기
