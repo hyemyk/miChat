@@ -66,7 +66,7 @@ public class Room {
         chatRoomStatus = "[";
         if(this.clients.size() > 0) {
             for (Server.Client client : clients) {
-                chatRoomStatus += String.format("{\"clientSize\":\"%s\"},", this.clients.size());
+                chatRoomStatus += String.format("{\"roomName\":\"%s\", \"clientSize\":\"%s\"},", this.roomName, this.clients.size());
                 System.out.println("this.clients.size() : " + this.clients.size());
             }
             chatRoomStatus = chatRoomStatus.substring(0,chatRoomStatus.length()-1);

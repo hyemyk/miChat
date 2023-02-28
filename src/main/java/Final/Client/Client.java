@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
+import javafx.scene.control.TextField;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,7 +24,9 @@ public class Client {
     AsynchronousSocketChannel socketChannel;
 
     TextArea txtDisplay;
+    String strShowNo;
     HashMap<String, TextArea> joinChats = new HashMap<>();
+    HashMap<String, String> joinChat2 = new HashMap<>();
     ListView<Room> listView;
 
    // Room room;
@@ -37,6 +40,15 @@ public class Client {
         joinChats.put(roomName, txtDisplay);
         this.txtDisplay = txtDisplay;
     }
+    public void setShowNo(String strShowNo, String roomName) {
+        joinChat2.put(roomName, strShowNo);
+        this.strShowNo = strShowNo;
+    }
+
+    public String getShowNo() {
+        return strShowNo;
+    }
+
     void displayText(String text) {
         txtDisplay.appendText(text+"\n");
     }
@@ -141,6 +153,12 @@ public class Client {
                             break;
                         case "/room/chatRoomStatus":
                             System.out.println("받아지니?: " + data);
+                            JSONArray roomClients = (JSONArray) token.get("roomClients");
+                            for (int i = 0; i < roomClients.size(); i++) {
+                                JSONObject client = (JSONObject) roomClients.get(i);
+                                setShowNo(client.get("clientSize").toString(), client.get("roomName").toString());
+                            }
+
                             break;
                         case "/chat/echo":
                             System.out.println("받은 채팅데이터 : " + data);
