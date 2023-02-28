@@ -106,7 +106,7 @@ public class Server extends Application{
 
         public List<Client> connections;
         public RoomManager roomManager;
-        // public Room room;
+        public Room room;
         public List<Room> userRooms;
         AsynchronousSocketChannel socketChannel;
 
@@ -114,7 +114,6 @@ public class Server extends Application{
                 this.socketChannel = socketChannel;
                 this.connections = connections;
                 this.roomManager = roomManager;
-                //this.room = null;
                 userRooms = new Vector<Room>();
 
             receive();
@@ -185,9 +184,12 @@ public class Server extends Application{
                                     for (int i = 0; i < roomManager.rooms.size(); i++) {
                                         if (roomManager.rooms.get(i).roomName.equals(token.get("roomName").toString())) {
                                             roomManager.rooms.get(i).entryRoom(Client.this);
+                                            room = roomManager.rooms.get(i);
                                             Platform.runLater(()-> {
                                                 try {
                                                     displayText("[채팅서버] 채팅방 입장" + socketChannel.getRemoteAddress());
+
+                                                    sendChatRoomStatus();
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -332,6 +334,34 @@ public class Server extends Application{
             });
         }
 
+        public void sendChatRoomStatus() {
+            System.out.println("room.chatRoomStatus : "  + room.chatRoomStatus);
+            String packet = String.format("{\"method\":\"%s\",\"roomClients\":%s}", "/room/chatRoomStatus", room.chatRoomStatus);
+            Charset charset = Charset.forName("utf-8");
+            ByteBuffer byteBuffer = charset.encode(packet);
+            socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+
+                @Override
+                public void completed(Integer result, Void attachment) {
+                    String message = "\"[채팅서버] 송신 /room/chatRoomStatus\"]";
+                    Platform.runLater(()->displayText(message));
+
+                }
+
+                @Override
+                public void failed(Throwable exc, Void attachment) {
+                    try{
+                        String message = "[클라이언트 통신 안됨: "+socketChannel.getRemoteAddress()+" : " + Thread.currentThread().getName() + "]";
+                        Platform.runLater(()->displayText(message));
+                        connections.remove(Client.this);
+                        socketChannel.close();
+                    }catch(IOException e) {
+
+                    }
+                }
+
+            });
+        }
         private void sendEcho(String id, String message, String roomName) {
             String packet = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\",\"roomName\":\"%s\"}","/chat/echo", id, message, roomName);
             Charset charset = Charset.forName("utf-8");

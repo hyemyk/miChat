@@ -10,6 +10,7 @@ public class Room {
     public int index;
     public String roomName;
     public List<Server.Client> clients;
+    public String chatRoomStatus;
 
     public Room(){//매개값 없는 룸 생성
 
@@ -25,6 +26,7 @@ public class Room {
         this.index = index;
         this.roomName = roomName;
         clients = new Vector<>();
+        this.chatRoomStatus = "[]";
     }
 
     /**
@@ -38,7 +40,7 @@ public class Room {
             clients.add(client);
             client.userRooms.add(this);
             //client.room = this;
-
+            chatRoomStatus();
         }
     }
 
@@ -56,5 +58,20 @@ public class Room {
         if (this.clients.size() < 1) {
             roomManager.destroyRoom(this);
         }
+    }
+
+
+
+    void chatRoomStatus() {
+        chatRoomStatus = "[";
+        if(this.clients.size() > 0) {
+            for (Server.Client client : clients) {
+                chatRoomStatus += String.format("{\"clientSize\":\"%s\"},", this.clients.size());
+                System.out.println("this.clients.size() : " + this.clients.size());
+            }
+            chatRoomStatus = chatRoomStatus.substring(0,chatRoomStatus.length()-1);
+        }
+        chatRoomStatus += "]";
+        System.out.println("[채팅서버-chatRoomStatus] " + chatRoomStatus);
     }
 }

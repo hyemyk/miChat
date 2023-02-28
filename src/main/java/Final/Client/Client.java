@@ -139,6 +139,9 @@ public class Client {
                                 }
                             });
                             break;
+                        case "/room/chatRoomStatus":
+                            System.out.println("받아지니?: " + data);
+                            break;
                         case "/chat/echo":
                             System.out.println("받은 채팅데이터 : " + data);
                             if (joinChats.containsKey(token.get("roomName").toString())) {
