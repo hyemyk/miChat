@@ -132,19 +132,14 @@ public class Server extends Application{
                         attachment.flip();
                         Charset charset = Charset.forName("utf-8");
                         String data = charset.decode(attachment).toString();
-                        //====================Json 시작
+
                         JSONParser jsonParser = new JSONParser();
                         JSONObject token = (JSONObject) jsonParser.parse(data);
                         String method = token.get("method").toString();
-                        System.out.println(method);
 
                         switch (method) {
                             // #로그인
                             case "/login/id":
-                                    System.out.println(Client.this);
-                                    System.out.println(token.get("id").toString());
-
-                                    System.out.println("실행함?");
                                     Platform.runLater(()-> {
                                         try {
                                             displayText("[채팅서버] 로그인 성공 " + socketChannel.getRemoteAddress());
@@ -158,11 +153,9 @@ public class Server extends Application{
                                 
                             // #방생성
                             case "/room/create":
-                                    System.out.println(Client.this);
-                                    System.out.println(token.get("roomName").toString());
                                     Room createRoom = roomManager.createRoom(token.get("roomName").toString(), Client.this);
                                     userRooms.add(createRoom);
-                                    System.out.println("실행함?");
+
                                     Platform.runLater(()-> {
                                         try {
                                             displayText("[채팅서버] 채팅방 개설 " + socketChannel.getRemoteAddress());
@@ -172,17 +165,14 @@ public class Server extends Application{
                                         }
                                     });
                                     Platform.runLater(()->displayText("[채팅서버] 현재 채팅방 갯수 " + roomManager.rooms.size()));
-//                                for (Client client : createRoom.clients) {
-//                                    client.sendChatRoomStatus(Client.this.room);
-//                                }
-                                sendChatRoomStatus(createRoom);
+                                    sendChatRoomStatus(createRoom);
                                 break;
+
                             // #방 리스트 띄워주기
                             case "/room/roomList":
-                                //for(Client client : connections) {
-                                    sendRoomList(); //모든 클라이언트에게 보내기 --> 로그인한 클라이언트한테만 보내기
-                                //}
+                                    sendRoomList(); //로그인한 클라이언트한테만 보내기
                                 break;
+
                             // #방입장
                             case "/room/entry":
                                     for (int i = 0; i < roomManager.rooms.size(); i++) {
@@ -203,6 +193,7 @@ public class Server extends Application{
                                         }
                                     }
                                 break;
+
                             // #방 나가기
                             case "/room/leave":
                                 for (int i = 0; i < roomManager.rooms.size(); i++) {
@@ -218,14 +209,9 @@ public class Server extends Application{
                                     }
                                 }
                                 break;
+
                             // #쳇전송
                             case "/chat/send":
-                                    //System.out.println("room : " + room);
-                                    //System.out.println("room.clients : "+ room.clients);
-                                    //System.out.println("connections : " + connections);
-//                                    for (Client c : room.clients) {
-//                                        if (c != Client.this) c.sendEcho(token.get("id").toString(), token.get("message").toString());
-//                                    }
                                 for (int i = 0; i < roomManager.rooms.size(); i++) {
                                     if (roomManager.rooms.get(i).roomName.equals(token.get("roomName").toString())) {
                                         Room room = roomManager.rooms.get(i);
@@ -245,12 +231,8 @@ public class Server extends Application{
                                     }
                                 });
                         }
-                        //====================Json 끝
                         System.out.println(data);
 
-                        for(Client  client : connections) {
-                            // client.send(data); //모든 클라이언트에게 보내기
-                        }
                         ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
 
                         socketChannel.read(byteBuffer, byteBuffer, this); //데이터 다시 읽기

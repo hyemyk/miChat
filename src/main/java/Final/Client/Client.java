@@ -126,12 +126,11 @@ public class Client {
                     attachment.flip();
                     Charset charset = Charset.forName("utf-8");
                     String data = charset.decode(attachment).toString();
-                    //====================Json 시작
+
                     JSONParser jsonParser = new JSONParser();
                     JSONObject token = (JSONObject) jsonParser.parse(data);
                     String method = token.get("method").toString();
                     System.out.println(method);
-                    // Platform.runLater(()->displayText(data));
                     System.out.println("data : " + data);
 
                     switch (method) {
@@ -145,16 +144,13 @@ public class Client {
                                     JSONObject room = (JSONObject) rooms.get(i);
                                     listView.getItems().add(
                                             new Room(
-                                                    //room.get("id").toString(),
                                                     room.get("roomName").toString(),
                                                     Integer.parseInt(room.get("roomSize").toString()))
                                     );
-
                                 }
                             });
                             break;
                         case "/room/chatRoomStatus":
-                            System.out.println("받아지니?: " + data);
                             JSONObject roomClients = (JSONObject) token.get("roomClients");
                             String clientSize = (String) roomClients.get("clientSize");
                             Platform.runLater(() -> {
@@ -163,12 +159,11 @@ public class Client {
 
                             break;
                         case "/chat/echo":
-                            System.out.println("받은 채팅데이터 : " + data);
+                            System.out.println("받은 채팅 내용 : " + data);
                             if (joinChats.containsKey(token.get("roomName").toString())) {
                                 Platform.runLater(()->{
                                     displayText( token.get("id") + "님 :: " + token.get("message"), joinChats.get(token.get("roomName").toString()) );
                                 });
-
                             }
                             break;
                     }
@@ -182,13 +177,10 @@ public class Client {
 
             @Override
             public void failed(Throwable exc, ByteBuffer attachment) {
-                //Platform.runLater(()->chatRoomCon.displayText("[서버 통신 실패]"));
                 stopClient();
             }
-
         });
     }
-
 
     public void requestRoomList() {
 
