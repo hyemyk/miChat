@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.concurrent.Executors;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 
@@ -124,18 +125,17 @@ public class Client {
                             Platform.runLater(()->{
                                 // init listView
                                 listView.getItems().clear();
-
                                 // append listView
                                 JSONArray rooms = (JSONArray) token.get("rooms");
                                 for (int i = 0; i < rooms.size(); i++) {
                                     JSONObject room = (JSONObject) rooms.get(i);
-                                    System.out.println("room.toString() : " + room.toString());
                                     listView.getItems().add(
                                             new Room(
                                                     //room.get("id").toString(),
                                                     room.get("roomName").toString(),
                                                     Integer.parseInt(room.get("roomSize").toString()))
                                     );
+
                                 }
                             });
                             break;

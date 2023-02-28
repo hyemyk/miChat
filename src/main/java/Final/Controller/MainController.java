@@ -22,16 +22,15 @@ public class MainController implements Initializable {
     private WindowOpenManager windowOpenManager;
 
     private Client client;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // client.requestRoomList();
-        // listView.setItems(FXCollections.observableArrayList());
+        //listView.setItems(FXCollections.observableArrayList());
         listView.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Room>() {
                     @Override
                     public void changed(ObservableValue<? extends Room> observable, Room oldValue, Room newValue) {
-                        //System.out.println("newValue.roomName : " + newValue.roomName);
+                        System.out.println("newValue : "+newValue);
                         if(newValue != null){
                             client.sendEntry(newValue);
                             windowOpenManager.chatRoomOpen(newValue);
@@ -59,8 +58,6 @@ public class MainController implements Initializable {
 
     public void refreshList() {
         client.requestRoomList();
-
-
     }
 
     public void setClient(Client client) {
