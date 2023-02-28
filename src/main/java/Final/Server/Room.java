@@ -9,10 +9,10 @@ public class Room {
     public String id;
     public int index;
     public String roomName;
-    public List<Server.Client> clients;
+    public List<Server.Client> clients = new Vector<>();
     public String chatRoomStatus;
 
-    public Room(){//매개값 없는 룸 생성
+    public Room() {//매개값 없는 룸 생성
 
     }
 
@@ -20,13 +20,13 @@ public class Room {
             RoomManager roomManager,
             String id,
             int index,
-            String roomName) {
+            String roomName,
+            Server.Client client) {
         this.roomManager = roomManager;
         this.id = id;
         this.index = index;
         this.roomName = roomName;
-        clients = new Vector<>();
-        this.chatRoomStatus = "[]";
+        this.clients.add(client);
     }
 
     /**
@@ -40,7 +40,7 @@ public class Room {
             clients.add(client);
             client.userRooms.add(this);
             //client.room = this;
-            chatRoomStatus();
+            //chatRoomStatus();
         }
     }
 
@@ -61,17 +61,14 @@ public class Room {
     }
 
 
-
-    void chatRoomStatus() {
-        chatRoomStatus = "[";
-        if(this.clients.size() > 0) {
-            for (Server.Client client : clients) {
-                chatRoomStatus += String.format("{\"roomName\":\"%s\", \"clientSize\":\"%s\"},", this.roomName, this.clients.size());
-                System.out.println("this.clients.size() : " + this.clients.size());
-            }
-            chatRoomStatus = chatRoomStatus.substring(0,chatRoomStatus.length()-1);
+    public String chatRoomStatus() {
+        String roomStatus = "";
+        if (this.clients.size() > 0) {
+            roomStatus += String.format("{\"roomName\":\"%s\", \"clientSize\":\"%s\"},", this.roomName, this.clients.size());
+            System.out.println("this.clients.size() : " + this.clients.size());
+            roomStatus = roomStatus.substring(0, roomStatus.length() - 1);
         }
-        chatRoomStatus += "]";
-        System.out.println("[채팅서버-chatRoomStatus] " + chatRoomStatus);
+        System.out.println("[채팅서버-roomStatus] " + roomStatus);
+        return roomStatus;
     }
 }

@@ -7,7 +7,6 @@ import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.Executors;
@@ -161,7 +160,8 @@ public class Server extends Application{
                             case "/room/create":
                                     System.out.println(Client.this);
                                     System.out.println(token.get("roomName").toString());
-                                    userRooms.add(roomManager.createRoom(token.get("roomName").toString(), Client.this));
+                                    Room createRoom = roomManager.createRoom(token.get("roomName").toString(), Client.this);
+                                    userRooms.add(createRoom);
                                     System.out.println("실행함?");
                                     Platform.runLater(()-> {
                                         try {
@@ -172,6 +172,10 @@ public class Server extends Application{
                                         }
                                     });
                                     Platform.runLater(()->displayText("[채팅서버] 현재 채팅방 갯수 " + roomManager.rooms.size()));
+//                                for (Client client : createRoom.clients) {
+//                                    client.sendChatRoomStatus(Client.this.room);
+//                                }
+                                sendChatRoomStatus(createRoom);
                                 break;
                             // #방 리스트 띄워주기
                             case "/room/roomList":
@@ -184,12 +188,13 @@ public class Server extends Application{
                                     for (int i = 0; i < roomManager.rooms.size(); i++) {
                                         if (roomManager.rooms.get(i).roomName.equals(token.get("roomName").toString())) {
                                             roomManager.rooms.get(i).entryRoom(Client.this);
-                                            room = roomManager.rooms.get(i);
+                                            Client.this.room = roomManager.rooms.get(i);
                                             Platform.runLater(()-> {
                                                 try {
                                                     displayText("[채팅서버] 채팅방 입장" + socketChannel.getRemoteAddress());
-
-                                                    sendChatRoomStatus();
+                                                    for (Client client : Client.this.room.clients) {
+                                                        client.sendChatRoomStatus(Client.this.room);
+                                                    }
                                                 } catch (IOException e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -334,9 +339,9 @@ public class Server extends Application{
             });
         }
 
-        public void sendChatRoomStatus() {
-            System.out.println("room.chatRoomStatus : "  + room.chatRoomStatus);
-            String packet = String.format("{\"method\":\"%s\",\"roomClients\":%s}", "/room/chatRoomStatus", room.chatRoomStatus);
+        public void sendChatRoomStatus(Room createRoom) {
+            System.out.println("room.chatRoomStatus : "  + createRoom.chatRoomStatus());
+            String packet = String.format("{\"method\":\"%s\",\"roomClients\":%s}", "/room/chatRoomStatus", createRoom.chatRoomStatus());
             Charset charset = Charset.forName("utf-8");
             ByteBuffer byteBuffer = charset.encode(packet);
             socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){

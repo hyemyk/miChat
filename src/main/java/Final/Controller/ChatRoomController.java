@@ -66,24 +66,19 @@ public class ChatRoomController implements Initializable {
         this.client = client;
         client.setTxtDisplay(txtDisplay, thisRoom.roomName);
         //String strShowNo = showNo.getText();
-        //client.setShowNo(strShowNo, thisRoom.roomName);
-        showNo.setText(client.getShowNo());
+        client.setShowNo(showNo, thisRoom.roomName);
+
+
     }
 
     public void setThisRoom(Room thisRoom) {
         this.thisRoom = thisRoom;
         System.out.println("thisRoom : " + thisRoom.roomName);
         showName.setText(thisRoom.roomName);
+       // client.setShowNo(showNo,thisRoom.roomName);
+        // showNo.setText();
 
     }
 
-//    EventHandler<KeyEvent> KeyEvent = new EventHandler<KeyEvent>() {
-//        @Override
-//        public void handle(KeyEvent k) {
-//            if (k.getCode().equals(KeyCode.ENTER)) {
-//                setThisRoom(thisRoom);
-//            }
-//        }
-//    }
 
 }

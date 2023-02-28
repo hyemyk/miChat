@@ -24,9 +24,9 @@ public class Client {
     AsynchronousSocketChannel socketChannel;
 
     TextArea txtDisplay;
-    String strShowNo;
+    TextField showNo;
     HashMap<String, TextArea> joinChats = new HashMap<>();
-    HashMap<String, String> joinChat2 = new HashMap<>();
+    HashMap<String, TextField> joinChat2 = new HashMap<>();
     ListView<Room> listView;
 
    // Room room;
@@ -40,14 +40,12 @@ public class Client {
         joinChats.put(roomName, txtDisplay);
         this.txtDisplay = txtDisplay;
     }
-    public void setShowNo(String strShowNo, String roomName) {
-        joinChat2.put(roomName, strShowNo);
-        this.strShowNo = strShowNo;
+    public void setShowNo(TextField showNo, String roomName) {
+        joinChat2.put(roomName, showNo);
+        this.showNo = showNo;
     }
 
-    public String getShowNo() {
-        return strShowNo;
-    }
+
 
     void displayText(String text) {
         txtDisplay.appendText(text+"\n");
@@ -55,6 +53,10 @@ public class Client {
 
     void displayText(String text, TextArea textArea) {
         textArea.appendText(text+"\n");
+    }
+    void displayText2(String text, TextField textField) {
+        System.out.println(text);
+        textField.setText(text);
     }
 
     void initText() {
@@ -153,11 +155,11 @@ public class Client {
                             break;
                         case "/room/chatRoomStatus":
                             System.out.println("받아지니?: " + data);
-                            JSONArray roomClients = (JSONArray) token.get("roomClients");
-                            for (int i = 0; i < roomClients.size(); i++) {
-                                JSONObject client = (JSONObject) roomClients.get(i);
-                                setShowNo(client.get("clientSize").toString(), client.get("roomName").toString());
-                            }
+                            JSONObject roomClients = (JSONObject) token.get("roomClients");
+                            String clientSize = (String) roomClients.get("clientSize");
+                            Platform.runLater(() -> {
+                                displayText2(clientSize, joinChat2.get(roomClients.get("roomName").toString()));
+                            });
 
                             break;
                         case "/chat/echo":

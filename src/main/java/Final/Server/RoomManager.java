@@ -52,7 +52,7 @@ public class RoomManager {
         // ### unique id ###
         String uniqueID = UUID.randomUUID().toString();
 
-        Room newRoom = new Room(this, uniqueID, rooms.size(), roomName);
+        Room newRoom = new Room(this, uniqueID, rooms.size(), roomName, client);
         rooms.add(newRoom);
         System.out.println("createRoom실행함-2?");
         // #전달 - 모든 Client에게 상황보고
