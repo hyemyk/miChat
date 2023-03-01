@@ -42,7 +42,7 @@ public class Server extends Application{
             channelGroup = AsynchronousChannelGroup.withFixedThreadPool(Runtime.getRuntime().availableProcessors(), Executors.defaultThreadFactory());
             //서버소켓 채널 열기
             serverSocketChannel = AsynchronousServerSocketChannel.open(channelGroup);
-            //아이피 포트 바인드
+            //port 바인드를 위해 InetSocketAddress 객체를 매개값으로 bind 메서드 호출
             serverSocketChannel.bind(new InetSocketAddress(50001));
         }catch(Exception e) {
             if(serverSocketChannel.isOpen()) {
