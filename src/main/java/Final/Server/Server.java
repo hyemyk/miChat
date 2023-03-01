@@ -34,6 +34,8 @@ public class Server extends Application{
     public Server() {
         this.roomManager = new RoomManager(connections);
     }
+    public void Server1() {
+    }
 
     //서버 시작
     void startServer() {
