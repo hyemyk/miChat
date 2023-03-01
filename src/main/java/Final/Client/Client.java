@@ -29,31 +29,33 @@ public class Client {
     HashMap<String, TextField> joinChat2 = new HashMap<>();
     ListView<Room> listView;
 
-   // Room room;
+    // Room room;
     String id;
 
     public void setListView(ListView<Room> listView) {
         this.listView = listView;
-        System.out.println("listView : "+ listView);
+        System.out.println("listView : " + listView);
     }
+
     public void setTxtDisplay(TextArea txtDisplay, String roomName) {
         joinChats.put(roomName, txtDisplay);
         this.txtDisplay = txtDisplay;
     }
+
     public void setShowNo(TextField showNo, String roomName) {
         joinChat2.put(roomName, showNo);
         this.showNo = showNo;
     }
 
 
-
     void displayText(String text) {
-        txtDisplay.appendText(text+"\n");
+        txtDisplay.appendText(text + "\n");
     }
 
     void displayText(String text, TextArea textArea) {
-        textArea.appendText(text+"\n");
+        textArea.appendText(text + "\n");
     }
+
     void displayText2(String text, TextField textField) {
         System.out.println(text);
         textField.setText(text);
@@ -69,38 +71,30 @@ public class Client {
         try {
             channelGroup = AsynchronousChannelGroup.withFixedThreadPool(Runtime.getRuntime().availableProcessors(), Executors.defaultThreadFactory());
             socketChannel = AsynchronousSocketChannel.open(channelGroup);
-            socketChannel.connect(new InetSocketAddress("localhost", 50001), null, new CompletionHandler<Void,Void>(){
+            socketChannel.connect(new InetSocketAddress("localhost", 50001), null, new CompletionHandler<Void, Void>() {
 
                 @Override
                 public void completed(Void result, Void attachment) {
                     try {
-
                         String msg = "[연결 완료: " + socketChannel.getRemoteAddress() + "]";
                         System.out.println(msg);
                         System.out.println("받아온 ID: " + id);
                         sendId(id);
-
-//
-
-
-                        //btnConn.setText("stop");
-                        //btnSend.setDisable(false);
                     } catch (Exception e) {
-
-                        }
+                    }
                     receive(); //서버에서 보낸 데이터 받기
                 }
 
                 @Override
                 public void failed(Throwable exc, Void attachment) {
-                    //Platform.runLater(()->displayText("[서버 통신 실패]"));
-                    if(socketChannel.isOpen()) {
+                    if (socketChannel.isOpen()) {
                         stopClient();
                     }
                 }
 
             });
-        }catch(Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     //연결 종료
@@ -110,15 +104,15 @@ public class Client {
 //            btnConn.setText("start");
 //            btnSend.setDisable(true);
 //        });
-        if(channelGroup!=null && !channelGroup.isShutdown()) {
+        if (channelGroup != null && !channelGroup.isShutdown()) {
             channelGroup.shutdown();
         }
     }
 
     //서버로부터 데이터 받기
-   public void receive() {
+    public void receive() {
         ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
-        socketChannel.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>(){
+        socketChannel.read(byteBuffer, byteBuffer, new CompletionHandler<Integer, ByteBuffer>() {
 
             @Override
             public void completed(Integer result, ByteBuffer attachment) {
@@ -135,7 +129,7 @@ public class Client {
 
                     switch (method) {
                         case "/room/roomList":
-                            Platform.runLater(()->{
+                            Platform.runLater(() -> {
                                 // init listView
                                 listView.getItems().clear();
                                 // append listView
@@ -161,16 +155,16 @@ public class Client {
                         case "/chat/echo":
                             System.out.println("받은 채팅 내용 : " + data);
                             if (joinChats.containsKey(token.get("roomName").toString())) {
-                                Platform.runLater(()->{
-                                    displayText( token.get("id") + "님 :: " + token.get("message"), joinChats.get(token.get("roomName").toString()) );
+                                Platform.runLater(() -> {
+                                    displayText(token.get("id") + "님 :: " + token.get("message"), joinChats.get(token.get("roomName").toString()));
                                 });
                             }
                             break;
                     }
 
                     ByteBuffer byteBuffer = ByteBuffer.allocate(1000);
-                    socketChannel.read(byteBuffer, byteBuffer,this); //데이터 다시 읽기
-                }catch(Exception e) {
+                    socketChannel.read(byteBuffer, byteBuffer, this); //데이터 다시 읽기
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -188,7 +182,7 @@ public class Client {
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
             public void completed(Integer result, Void attachment) {
             }
@@ -200,13 +194,14 @@ public class Client {
 
         });
     }
+
     public void sendId(String id) {
 
         String data = String.format("{\"method\":\"%s\",\"id\":\"%s\"}", "/login/id", id);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
             public void completed(Integer result, Void attachment) {
             }
@@ -225,7 +220,7 @@ public class Client {
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
             public void completed(Integer result, Void attachment) {
                 // ### print() ###
@@ -250,12 +245,13 @@ public class Client {
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
             public void completed(Integer result, Void attachment) {
                 // ### print() ###
                 printEntry(id, room.roomName);
             }
+
             @Override
             public void failed(Throwable exc, Void attachment) {
                 stopClient();
@@ -271,13 +267,12 @@ public class Client {
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
             public void completed(Integer result, Void attachment) {
                 // ### print() ###
                 printLeave();
             }
-
 
 
             @Override
@@ -291,17 +286,18 @@ public class Client {
 
     //서버로 데이터 전송
     public void sendChat(String message, Room room) {
-        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\",\"roomName\":\"%s\"}","/chat/send", id, message, room.roomName);
+        String data = String.format("{\"method\":\"%s\",\"id\":\"%s\",\"message\":\"%s\",\"roomName\":\"%s\"}", "/chat/send", id, message, room.roomName);
         Charset charset = Charset.forName("utf-8");
         ByteBuffer byteBuffer = charset.encode(data);
 
-        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>(){
+        socketChannel.write(byteBuffer, null, new CompletionHandler<Integer, Void>() {
             @Override
-            public void completed(Integer result, Void attachment) {}
+            public void completed(Integer result, Void attachment) {
+            }
 
             @Override
             public void failed(Throwable exc, Void attachment) {
-                Platform.runLater(()->displayText("[서버 통신 실패]"));
+                Platform.runLater(() -> displayText("[서버 통신 실패]"));
                 stopClient();
             }
 
@@ -309,21 +305,20 @@ public class Client {
     }
 
 
-    void printEntry( String id, String roomName ) {
-        Platform.runLater(()->{
+    void printEntry(String id, String roomName) {
+        Platform.runLater(() -> {
             initText();
-            displayText("\"" + roomName + "\"에 오신 것을 환영합니다. " + id + "님" );
-            displayText("채팅방 이름 : " + roomName );
+            displayText("\"" + roomName + "\"에 오신 것을 환영합니다. " + id + "님");
+            displayText("채팅방 이름 : " + roomName);
         });
     }
 
     void printLeave() {
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             initText();
-            displayText("[채팅클라이언트] 채팅을 나갔습니다. 새로운 채팅방을 만들거나 찾아주세요." );
+            displayText("[채팅클라이언트] 채팅을 나갔습니다. 새로운 채팅방을 만들거나 찾아주세요.");
         });
     }
-
 
 
     // UI생성 코드
@@ -379,12 +374,9 @@ public class Client {
 //
 
 
-
 //    public TextArea getTxtDisplay() {
 //        return txtDisplay;
 //    }
-
-
 
 
 }
