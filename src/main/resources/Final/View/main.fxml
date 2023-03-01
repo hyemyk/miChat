@@ -17,19 +17,25 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onAction="#createChatOpen" text="create chat" />
+            <Button mnemonicParsing="false" onAction="#createChatOpen" text="CREATE CHAT" />
          </children>
       </HBox>
-      <HBox prefHeight="359.0" prefWidth="430.0">
+      <HBox alignment="CENTER" prefHeight="359.0" prefWidth="430.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" />
-            <ListView fx:id="listView" />
-            <VBox prefHeight="200.0" prefWidth="100.0" />
+            <ListView fx:id="listView" prefWidth="250.0" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></VBox>
          </children>
       </HBox>
-      <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#refreshList" text="refresh" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#refreshList" prefWidth="245.0" text="REFRESH">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
          </children>
          <padding>
             <Insets left="50.0" right="50.0" top="20.0" />

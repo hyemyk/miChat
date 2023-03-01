@@ -13,14 +13,14 @@
    <children>
       <HBox alignment="BOTTOM_CENTER" prefHeight="10.0" prefWidth="330.0" spacing="70.0">
          <children>
-            <Label text="채팅방 이름">
+            <Label text="roomName">
                <font>
-                  <Font size="18.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
-            <Label text="참가 인원">
+            <Label text="participant">
                <font>
-                  <Font size="18.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
          </children>
@@ -37,9 +37,9 @@
             <TextField fx:id="showNo" editable="false" prefHeight="20.0" prefWidth="150.0" />
          </children>
       </HBox>
-      <Label text="채팅방 내용">
+      <Label text="content">
          <font>
-            <Font size="18.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <HBox prefHeight="292.0" prefWidth="330.0">
@@ -47,22 +47,19 @@
             <TextArea fx:id="txtDisplay" editable="false" prefHeight="100.0" prefWidth="335.0" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="330.0" spacing="10.0">
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="330.0" spacing="15.0">
          <children>
-            <TextField fx:id="txtInput" prefHeight="46.0" prefWidth="221.0" />
-            <Button fx:id="sendBtn" mnemonicParsing="false" onAction="#send" prefHeight="50.0" prefWidth="100.0" text="보내기">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
+            <TextField fx:id="txtInput" prefHeight="10.0" prefWidth="260.0" />
+            <Button fx:id="sendBtn" mnemonicParsing="false" onAction="#send" prefHeight="10.0" prefWidth="50.0" text="SEND" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="330.0">
+      <HBox alignment="CENTER_RIGHT">
          <children>
-            <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#stopClient" prefHeight="50.0" prefWidth="100.0" text="나가기">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
+            <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#stopClient" prefHeight="10.0" prefWidth="500.0" text="EXIT" />
          </children>
+         <VBox.margin>
+            <Insets right="5.0" />
+         </VBox.margin>
       </HBox>
    </children>
    <padding>
