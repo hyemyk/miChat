@@ -8,42 +8,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="430.0" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Final.Controller.CreateRoomController">
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="430.0" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Final.Controller.CreateRoomController">
    <children>
-      <Label contentDisplay="CENTER" text="채팅방 만들기" textAlignment="CENTER">
+      <Label contentDisplay="CENTER" text="create chatRoom" textAlignment="CENTER">
          <VBox.margin>
             <Insets top="70.0" />
          </VBox.margin>
          <font>
-            <Font size="36.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="50.0">
          <children>
-            <Label text="채팅방 이름">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <TextField fx:id="rName" prefHeight="31.0" prefWidth="162.0" />
+            <Label text="roomName" />
+            <TextField fx:id="rName" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="50.0">
          <children>
-            <Button fx:id="createBtn" mnemonicParsing="false" onAction="#create" prefHeight="50.0" prefWidth="100.0" text="만들기">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="100.0" text="취소">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
+            <Button fx:id="createBtn" mnemonicParsing="false" onAction="#create" text="CREATE" />
+            <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancel" text="CANCEL" />
          </children>
       </HBox>
    </children>
    <padding>
-      <Insets left="50.0" right="50.0" />
+      <Insets bottom="30.0" left="50.0" right="50.0" />
    </padding>
 </VBox>
